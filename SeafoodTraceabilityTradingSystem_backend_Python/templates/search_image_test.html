@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Image Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        #results {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        #results ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #results ul li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Image Search Test</h1>
+    <form id="searchForm">
+        <div class="form-group">
+            <label for="image">Upload an image:</label>
+            <input type="file" id="image" name="image" accept="image/*" required>
+        </div>
+        <button type="submit">Search</button>
+    </form>
+    <div id="results" style="display: none;">
+        <h2>Search Results:</h2>
+        <ul id="resultsList"></ul>
+    </div>
+</div>
+
+<script>
+    document.getElementById('searchForm').addEventListener('submit', async function (event) {
+        event.preventDefault(); // Prevent the form from submitting the default way
+
+        const formData = new FormData();
+        const imageFile = document.getElementById('image').files[0];
+
+        if (!imageFile) {
+            alert("Please select an image file to upload.");
+            return;
+        }
+
+        formData.append('image', imageFile);
+
+        try {
+            // Send the image to the search API
+            const response = await fetch('http://127.0.0.1:8889/api/search_image/', {
+                method: 'POST',
+                body: formData
+            });
+
+            // Parse the response
+            const result = await response.json();
+
+            if (response.ok) {
+                const resultsList = document.getElementById('resultsList');
+                resultsList.innerHTML = ''; // Clear previous results
+
+                if (result.data && result.data.results.length > 0) {
+                    result.data.results.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `Milvus ID: ${item.milvus_id}, Distance: ${item.distance}`;
+                        resultsList.appendChild(listItem);
+                    });
+                } else {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = 'No results found.';
+                    resultsList.appendChild(listItem);
+                }
+
+                document.getElementById('results').style.display = 'block';
+            } else {
+                alert(`Error: ${result.error || 'An unknown error occurred.'}`);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while processing your request.');
+        }
+    });
+</script>
+</body>
+</html>
