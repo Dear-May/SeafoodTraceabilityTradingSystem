@@ -1,0 +1,2 @@
+# SeafoodTraceabilityTradingSystem
+海鲜溯源交易平台-毕业设计
