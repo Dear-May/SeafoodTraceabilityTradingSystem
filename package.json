@@ -1,0 +1,69 @@
+{
+  "name": "shoppping_c",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^2.3.1",
+    "axios": "^1.7.7",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "core-js": "^3.8.3",
+    "crypto-browserify": "^3.12.1",
+    "depcheck": "^1.4.7",
+    "echarts": "^5.5.1",
+    "element-plus": "^2.8.5",
+    "emoji-picker-element": "^1.26.0",
+    "html2canvas": "^1.4.1",
+    "pinia": "^2.2.6",
+    "stream-browserify": "^3.0.0",
+    "three": "^0.121.0",
+    "v-viewer": "^3.0.21",
+    "vanta": "^0.5.24",
+    "video.js": "^7.21.6",
+    "vm-browserify": "^1.1.2",
+    "vue": "^3.2.13",
+    "vue-cropperjs": "^5.0.0",
+    "vue-meta": "^3.0.0-alpha.2",
+    "vue-puzzle-vcode": "^1.1.10",
+    "vue-router": "^4.4.5",
+    "vue-video-player": "^6.0.0",
+    "vue3-puzzle-vcode": "^1.1.7",
+    "vue3-slide-verify": "^1.1.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "less": "^4.2.0",
+    "less-loader": "^12.2.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
