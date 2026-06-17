@@ -275,7 +275,7 @@ import {onMounted, ref} from "vue";
 import {useUserShop} from "@/composables/useShopUser";
 import {Plus, Search} from "@element-plus/icons-vue";
 import {ElMessage} from "element-plus";
-import axios from "axios";
+import request from "@/api/request";
 import StoreHeaderView from "@/components/StoreHeaderView.vue";
 
 const shopSlider = ref(null);
@@ -299,7 +299,7 @@ function isMerchant() {
 
 async function initProducts() {
   try {
-    const response = await axios.post('/api/shop/getAllGoodInfo', {
+    const response = await request.post('/api/shop/getAllGoodInfo', {
       shopID: shopForm.value.shopID,
     }, {
       headers: {
@@ -340,7 +340,7 @@ function searchProducts() {
 // 下架商品
 async function removeProduct(product) {
   try {
-    const response = await axios.post('/api/shop/updateGoodInfo', {
+    const response = await request.post('/api/shop/updateGoodInfo', {
       name: product.name,
       goodID: product.goodID,
       updateStatus: !product.status,
@@ -389,7 +389,7 @@ async function uploadProductImage(product) {
   formData.append("image", selectedGoodFile.value);
   formData.append("goodID", product.goodID)
   try {
-    const response = await axios.post("/api/shop/updateGoodImage", formData, {
+    const response = await request.post("/api/shop/updateGoodImage", formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       },
@@ -412,7 +412,7 @@ async function saveProduct(product) {
   }
   const isChanged = product.imageUrl !== originalProductInfo.value.imageUrl;
   try {
-    const response = await axios.post('/api/shop/updateGoodInfo', {
+    const response = await request.post('/api/shop/updateGoodInfo', {
       name: product.name,
       goodID: product.goodID,
       shopID: shopForm.value.shopID,
@@ -451,7 +451,7 @@ function cancelEdit(product) {
 // 下架规格
 async function removeSpec(product, spec) {
   try {
-    const response = await axios.post('/api/shop/updateSpecInfo', {
+    const response = await request.post('/api/shop/updateSpecInfo', {
       goodID: product.goodID,
       specID: spec.specID,
       updateStatus: !spec.status,
@@ -516,7 +516,7 @@ async function uploadSpecImage(spec) {
   formData.append("image", selectedFile.value);
   formData.append("specID", spec.specID)
   try {
-    const response = await axios.post("/api/shop/updateSpecImage", formData, {
+    const response = await request.post("/api/shop/updateSpecImage", formData, {
       headers: {
         "Content-Type": "multipart/form-data"
       },
@@ -539,7 +539,7 @@ async function saveSpec(product, spec) {
   }
   const isChanged = spec.imageUrl !== originalSpecInfo.value.imageUrl;
   try {
-    const response = await axios.post('/api/shop/updateSpecInfo', {
+    const response = await request.post('/api/shop/updateSpecInfo', {
       specName: spec.name,
       goodID: product.goodID,
       specID: spec.specID,
@@ -623,7 +623,7 @@ const addSpec = () => {
 
 async function submitGood() {
   try {
-    const response = await axios.post("/api/shop/insertGoodInfo", {
+    const response = await request.post("/api/shop/insertGoodInfo", {
       shopID: shopForm.value.shopID,
       name: productForm.value.name,
       origin: productForm.value.origin,

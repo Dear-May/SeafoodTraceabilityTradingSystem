@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-3 d-flex align-items-center justify-content-start">
           <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none">
-            <img src="../images/logo.png" alt="Haichao" class="bi me-2" width="50" height="50" role="img"
+            <img src="../assets/images/logo.png" alt="Haichao" class="bi me-2" width="50" height="50" role="img"
                  aria-label="Haichao">
           </a>
           <nav class="nav">
@@ -96,7 +96,7 @@ import router from "@/router";
 import {defineExpose, onMounted, ref} from "vue";
 import {ElMessage} from "element-plus";
 import useUser from "@/composables/useUser";
-import axios from "axios";
+import request from "@/api/request";
 
 const {UserInfoForm, initUserSession} = useUser()
 
@@ -134,7 +134,7 @@ const unreadMessageCount = ref(0);
 
 async function getUnreadMessageCount() {
   try {
-    const response = await axios.post('/api/chat/getUnreadMessageCount', {
+    const response = await request.post('/api/chat/getUnreadMessageCount', {
       userId: UserInfoForm.value.id
     }, {
       headers: {

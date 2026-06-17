@@ -278,7 +278,7 @@ import ShopSliderComponent from "@/components/ShopSliderComponent.vue";
 import StoreHeaderView from "@/components/StoreHeaderView.vue";
 import {useUserShop} from "@/composables/useShopUser";
 import {Plus, Search} from "@element-plus/icons-vue";
-import axios from "axios";
+import request from "@/api/request";
 
 const {UserForm, shopForm, initUserSession, initShopInfo} = useUserShop();
 const shopSlider = ref(null);
@@ -291,7 +291,7 @@ const activePanels = ref([]);
 
 async function initTraceData() {
   try {
-    const response = await axios.post('/api/trace/getShopTrace', {
+    const response = await request.post('/api/trace/getShopTrace', {
       ShopID: shopForm.value.shopID,
     }, {
       headers: {
@@ -338,7 +338,7 @@ const filteredProducts = ref([]);
 
 async function initProducts() {
   try {
-    const response = await axios.post('/api/shop/getAllGoodInfo', {
+    const response = await request.post('/api/shop/getAllGoodInfo', {
       shopID: shopForm.value.shopID,
     }, {
       headers: {
@@ -462,7 +462,7 @@ async function submitTraceImg(traceID) {
   }
   formData.append('traceInfoID', traceID);
   try {
-    const response = await axios.post('/api/trace/uploadImg', formData, {
+    const response = await request.post('/api/trace/uploadImg', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
@@ -499,7 +499,7 @@ async function submitTrace() {
     return;
   }
   try {
-    const response = await axios.post('/api/trace/createTrace', {
+    const response = await request.post('/api/trace/createTrace', {
       goodIDs: selectedProducts.value,
       info: traceForm.value.info,
       userID: UserForm.value.id,
@@ -544,7 +544,7 @@ async function addTraceInfo(traceId) {
     return;
   }
   try {
-    const response = await axios.post('/api/trace/addTrace', {
+    const response = await request.post('/api/trace/addTrace', {
       traceID: traceId,
       info: traceForm.value.info,
       userID: UserForm.value.id,

@@ -83,7 +83,7 @@
                 </div>
 
                 <!-- 聊天输入框 -->
-                <div style="text-align: start;">
+                <div class="text-start">
                   <transition name="fade">
                     <emoji-picker
                         v-if="showEmojiPicker"
@@ -122,7 +122,7 @@ import "video.js/dist/video-js.css";
 import {useUserShop} from "@/composables/useShopUser";
 import {ElMessage} from "element-plus";
 import router from "@/router";
-import axios from "axios";
+import request from "@/api/request";
 import 'emoji-picker-element';
 
 const shopSlider = ref(null);
@@ -172,7 +172,7 @@ const onlineUsers = ref([]);
 
 async function initOnlineUsers() {
   try {
-    const response = await axios.post('/api/live/getOnlineUserList', {
+    const response = await request.post('/api/live/getOnlineUserList', {
       roomId: shopForm.value.shopID,
     }, {
       headers: {
@@ -191,7 +191,7 @@ const chatWindowRef = ref(null);
 
 async function initChatMessages() {
   try {
-    const response = await axios.post('/api/live/getLiveMessageList', {
+    const response = await request.post('/api/live/getLiveMessageList', {
       roomId: shopForm.value.shopID,
     }, {
       headers: {
@@ -218,7 +218,7 @@ async function init() {
 
 async function updateLiveStatus(status) {
   try {
-    const response = await axios.post('/api/live/updateLiveStatus', {
+    const response = await request.post('/api/live/updateLiveStatus', {
       roomId: shopForm.value.shopID,
       status: status,
     }, {
@@ -328,7 +328,7 @@ const addEmoji = (event) => {
 async function sendMessage() {
   if (!chatInput.value) return;
   try {
-    const response = await axios.post('/api/live/insertLiveMessage', {
+    const response = await request.post('/api/live/insertLiveMessage', {
       roomId: shopForm.value.shopID,
       sendId: UserForm.value.id,
       message: chatInput.value,

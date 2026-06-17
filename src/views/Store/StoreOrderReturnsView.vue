@@ -3,230 +3,57 @@
     <ShopSliderComponent ref="shopSlider" @initApplications="initReturnOrdersInfo"></ShopSliderComponent>
     <div class="flex-grow-1 overflow-auto" style="background: #f5f7fa;">
       <StoreHeaderView ref="storeHeader"></StoreHeaderView>
-
       <div class="p-4">
         <el-tabs class="demo-tabs" v-model="activeTab" @tab-click="handleTabClick">
           <el-tab-pane name="all" label="全部订单">
             <template #label>
-        <span class="custom-tabs-label" @click="filterOrdersStatus('全部')">
-          <span :class="{isActive: activeTab==='all'}"><i
-              class="bi bi-list order-icon"></i>所有订单&nbsp;({{ orderCount.all }})</span>
-        </span>
+              <span class="custom-tabs-label" @click="filterOrdersStatus('全部')">
+                <span :class="{isActive: activeTab==='all'}"><i class="bi bi-list order-icon"></i>所有订单&nbsp;{{ orderCount.all }}</span>
+              </span>
             </template>
             <div class="search-container">
-              <el-input type="text" v-model="searchQuery" placeholder="搜索用户名或者订单号..." class="search-input"
-                        @keyup.enter="filterOrders"/>
-              <button @click="filterOrders" class="search-button">
-                <a class="bi bi-search" style="color:whitesmoke;"></a>
-              </button>
+              <el-input type="text" v-model="searchQuery" placeholder="搜索用户名或者订单号..." class="search-input" @keyup.enter="filterOrders" />
+              <button @click="filterOrders" class="search-button"><i class="bi bi-search" style="color:whitesmoke;"></i></button>
             </div>
-            <div class="row"
-                 style="background-color: #f5f5f5; padding: 10px; margin-bottom: 10px; margin-left: 40px; margin-right: 40px; font-weight: bold;">
-              <span class="col-4">商品</span>
-              <span class="col-1">单价</span>
-              <span class="col-2">数量</span>
-              <span class="col-3">总计</span>
-              <span class="col-2">操作</span>
+            <div class="order-table-header row fw-bold" style="background-color:#f5f5f5;padding:10px;margin:0 40px 10px;">
+              <span class="col-4">商品</span><span class="col-1">单价</span><span class="col-2">数量</span><span class="col-3">总计</span><span class="col-2">操作</span>
             </div>
             <div class="order-list">
-              <div v-for="(order) in filteredOrders" :key="order.orderId" class="order-items">
-                <div class="order-item-header row">
-                  <div class="col-4" style="text-align: left;">
-                    <span style="font-weight: bold; font-size: 16px;">{{ formatDate(order.createTime) }}</span>&nbsp;&nbsp;
-                    <span style="font-size: 14px;">订单号：{{ order.orderId }}</span>
-                  </div>
-                  <div class="col-5" style="text-align: left;">
-                    <span style="font-size: 14px;" class="ellipsis">{{ order.userName }}
-                    <a class="bi bi-chat shake-animation" style="margin-left: 10px; color: #ff5000;"
-                       @click="handleToChat(order.shopId)"></a></span>
-                  </div>
-                  <div class="col-3">
-                    <span style="font-size: 14px; font-weight: bold;">状态：{{ order.status }}</span>
-                    <div v-if="order.status !== '等待商家退款'">
-                      <span style="font-size: 14px; font-weight: bold;">操作员：{{ order.workUserName }}</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="order-item-body row">
-                  <div class="col-8">
-                    <div class="row order-item-body-card" v-for="(item,index) in order.orderItems" :key="item.itemId"
-                         style="text-align: left;">
-                      <div class="col-2">
-                        <img :src="item.specimg" alt="" style="width: 100px; height: 100px;">
-                      </div>
-                      <div class="col-4 row">
-                        <span style="font-size: 16px; font-weight: bold; text-align: left;">{{ item.goodname }}</span>
-                        <span style="font-size: 12px; text-align: left; color: #555555;">规格：{{ item.specname }}</span>
-                      </div>
-                      <div class="col-3"
-                           style="border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; align-items: center; justify-content: center; display: flex;">
-                        <span style="font-size: 16px; font-weight: bold;">￥{{ item.specprice }}</span>
-                      </div>
-                      <div class="col-3"
-                           style="border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; align-items: center; justify-content: center; display: flex;">
-                        <span style="font-size: 16px; font-weight: bold;">{{ item.specnumber }}</span>
-                      </div>
-                      <el-divider v-if="index < order.orderItems.length - 1"></el-divider>
-                    </div>
-                  </div>
-                  <div class="col-4 row"
-                       style="text-align: center; align-items: center; justify-content: center; display: flex;">
-                    <div
-                        style="border-right: 1px solid #e0e0e0; height: 100%; align-items: center; justify-content: center; display: flex;"
-                        class="col">
-                  <span
-                      style="font-size: 16px; font-weight: bold;">总计：￥{{
-                      order.totalPrice
-                    }}</span>
-                    </div>
-                    <div class="col">
-                      <el-button type="success" size="small" @click="handleToEvaluate(order.orderId)"
-                                 class="evaluate-button"
-                                 style="background-color: transparent; border: none; color: #333333;">查看申请原因
-                      </el-button>
-                      <div v-if="order.status === '等待商家退款'">
-                        <el-button type="success" size="small" @click="summitApply(order.orderId,'success')">通过申请
-                        </el-button>
-                        <el-button type="danger" size="small" @click="summitApply(order.orderId, 'fail')">拒绝申请
-                        </el-button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ReturnOrderCard v-for="order in filteredOrders" :key="order.orderId" :order="order"
+                @chat="handleToChat" @view-reason="viewReturnReason"
+                @approve="(id) => summitApply(id, 'success')"
+                @reject="(id) => summitApply(id, 'fail')" />
             </div>
           </el-tab-pane>
           <el-tab-pane name="paid" label="未处理订单">
             <template #label>
-              <span class="custom-tabs-label" @click="()=>{filterOrdersStatus('等待商家退款'); activeTab = 'paid';}">
-                <span :class="{isActive: activeTab === 'paid'}"><i
-                    class="bi bi-truck order-icon"></i>待处理订单&nbsp;({{ orderCount.working }})</span>
+              <span class="custom-tabs-label" @click="filterOrdersStatus('等待'); activeTab = 'paid';">
+                <span :class="{isActive: activeTab==='paid'}"><i class="bi bi-hourglass-split order-icon"></i>未处理&nbsp;{{ orderCount.working }}</span>
               </span>
             </template>
-            <div class="search-container">
-              <el-input type="text" v-model="searchQuery" placeholder="搜索用户名或者订单号..." class="search-input"
-                        @keyup.enter="filterOrders"/>
-              <button @click="filterOrders" class="search-button">
-                <a class="bi bi-search" style="color:whitesmoke;"></a>
-              </button>
-            </div>
-            <div class="row"
-                 style="background-color: #f5f5f5; padding: 10px; margin-bottom: 10px; margin-left: 40px; margin-right: 40px;">
-              <span class="col-4">商品</span>
-              <span class="col-1">单价</span>
-              <span class="col-2">数量</span>
-              <span class="col-3">总计</span>
-              <span class="col-2">操作</span>
+            <div class="order-table-header row fw-bold" style="background-color:#f5f5f5;padding:10px;margin:0 40px 10px;">
+              <span class="col-4">商品</span><span class="col-1">单价</span><span class="col-2">数量</span><span class="col-3">总计</span><span class="col-2">操作</span>
             </div>
             <div class="order-list">
-              <div v-for="(order) in filteredOrders" :key="order.orderId" class="order-items">
-                <div class="order-item-header row">
-                  <div class="col-4" style="text-align: left;">
-                    <span style="font-weight: bold; font-size: 16px;">{{ formatDate(order.createTime) }}</span>&nbsp;&nbsp;
-                    <span style="font-size: 14px;">订单号：{{ order.orderId }}</span>
-                  </div>
-                  <div class="col-5" style="text-align: left;">
-                    <span style="font-size: 14px;" class="ellipsis">{{ order.userName }}
-                    <a class="bi bi-chat shake-animation" style="margin-left: 10px; color: #ff5000;"
-                       @click="handleToChat(order.shopId)"></a></span>
-                  </div>
-                  <div class="col-3">
-                    <span style="font-size: 14px; font-weight: bold;">状态：{{ order.status }}</span>
-                  </div>
-                </div>
-                <div class="order-item-body row">
-                  <div class="col-8">
-                    <div class="row order-item-body-card" v-for="(item,index) in order.orderItems" :key="item.itemId"
-                         style="text-align: left;">
-                      <div class="col-2">
-                        <img :src="item.specimg" alt="" style="width: 100px; height: 100px;">
-                      </div>
-                      <div class="col-4 row">
-                        <span style="font-size: 16px; font-weight: bold; text-align: left;">{{ item.goodname }}</span>
-                        <span style="font-size: 12px; text-align: left; color: #555555;">规格：{{ item.specname }}</span>
-                      </div>
-                      <div class="col-3"
-                           style="border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; align-items: center; justify-content: center; display: flex;">
-                        <span style="font-size: 16px; font-weight: bold;">￥{{ item.specprice }}</span>
-                      </div>
-                      <div class="col-3"
-                           style="border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; align-items: center; justify-content: center; display: flex;">
-                        <span style="font-size: 16px; font-weight: bold;">{{ item.specnumber }}</span>
-                      </div>
-                      <el-divider v-if="index < order.orderItems.length - 1"></el-divider>
-                    </div>
-                  </div>
-                  <div class="col-4 row"
-                       style="text-align: center; align-items: center; justify-content: center; display: flex;">
-                    <div
-                        style="border-right: 1px solid #e0e0e0; height: 100%; align-items: center; justify-content: center; display: flex;"
-                        class="col">
-                  <span
-                      style="font-size: 16px; font-weight: bold;">总计：￥{{
-                      order.totalPrice
-                    }}</span>
-                    </div>
-                    <div class="col">
-                      <el-button type="success" size="small" @click="handleToEvaluate(order.orderId)"
-                                 class="evaluate-button"
-                                 style="background-color: transparent; border: none; color: #333333;">查看申请原因
-                      </el-button>
-                      <div>
-                        <el-button type="success" size="small" @click="summitApply(order.orderId,'success')">通过申请
-                        </el-button>
-                        <el-button type="danger" size="small" @click="summitApply(order.orderId, 'fail')">拒绝申请
-                        </el-button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <ReturnOrderCard v-for="order in filteredOrders" :key="order.orderId" :order="order"
+                @chat="handleToChat" @view-reason="viewReturnReason"
+                @approve="(id) => summitApply(id, 'success')"
+                @reject="(id) => summitApply(id, 'fail')" />
             </div>
           </el-tab-pane>
         </el-tabs>
       </div>
-
-      <el-dialog
-          title="查看申请原因"
-          v-model="dialogVisible"
-          width="40%"
-          :before-close="handleClose">
-        <div style="text-align: center;">
-          <p style="font-size: 16px; margin-top: 20px;">退换货申请原因：{{ ReturnInfo.text }}</p>
-          <div v-for="(image,index) in ReturnInfo.images" :key="index">
-            <el-image
-                style="width: 100px; height: 100px"
-                :src="image"
-                :zoom-rate="1.2"
-                :max-scale="7"
-                :min-scale="0.2"
-                :preview-src-list="[image]"
-                :initial-index="4"
-                fit="cover"
-            />
-          </div>
-        </div>
-        <template #footer>
-          <el-button type="success" size="small" @click="summitApply(selectOrderID,'success')"
-                     v-if="selectStatus === '等待商家退款'">通过申请
-          </el-button>
-          <el-button type="danger" size="small" @click="summitApply(selectOrderID, 'fail')"
-                     v-if="selectStatus === '等待商家退款'">拒绝申请
-          </el-button>
-          <el-button type="primary" size="small" @click="handleClose">关闭</el-button>
-        </template>
-      </el-dialog>
-
     </div>
   </div>
 </template>
 
 <script setup>
+import ReturnOrderCard from "@/components/ReturnOrderCard.vue";
 import ShopSliderComponent from "@/components/ShopSliderComponent.vue";
 import {useUserShop} from "@/composables/useShopUser";
 import {onMounted, ref} from "vue";
 import StoreHeaderView from "@/components/StoreHeaderView.vue";
-import axios from "axios";
+import request from "@/api/request";
 import {ElMessage} from "element-plus";
 import router from "@/router";
 
@@ -244,7 +71,7 @@ const orderCount = ref({
 
 async function initReturnOrdersInfo() {
   try {
-    const response = await axios.post('/api/shop/return/getShopReturnInfo', {
+    const response = await request.post('/api/shop/return/getShopReturnInfo', {
       shopID: shopForm.value.shopID
     }, {
       headers: {
@@ -337,7 +164,7 @@ function handleClose() {
 async function summitApply(orderId, status) {
   console.log(orderId, status);
   try {
-    const response = await axios.post('/api/shop/return/changeReturnStatus', {
+    const response = await request.post('/api/shop/return/changeReturnStatus', {
       workUserID: UserForm.value.id,
       orderId: orderId,
       status: status

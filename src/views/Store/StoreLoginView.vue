@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div id="box" class="background-video"></div>
   <el-header>
     <OceanWaveLogo ref="logoComponent"></OceanWaveLogo>
@@ -44,9 +44,9 @@ import {onMounted, ref, watch} from 'vue';
 import OceanWaveLogo from "@/components/OceanWaveLogoComponent.vue";
 import FooterComponent from "@/components/FooterComponent.vue";
 import router from "@/router";
-import {AbstractShapeBg} from '@/js/AbstractShapeBg.module';
+import {AbstractShapeBg} from '@/utils/AbstractShapeBg.module';
 import {ElMessage} from "element-plus";
-import axios from "axios";
+import request from "@/api/request";
 import Vcode from "vue3-puzzle-vcode";
 import {useUserShop} from "@/composables/useShopUser";
 
@@ -107,7 +107,7 @@ const onSuccess = () => {
 const getMsgNum = async () => {
   setButtonStatus();
   try {
-    const response = await axios.post(
+    const response = await request.post(
         "/api/sms/smsXxs",
         {
           phoneNumber: loginForm.value.phone,
@@ -149,7 +149,7 @@ const countdown = () => {
 
 async function getUserBaseInfo() {
   try {
-    const response = await axios.post('/api/shop/user/getShopUser', {
+    const response = await request.post('/api/shop/user/getShopUser', {
       phone: loginForm.value.phone,
     }, {
       headers: {
@@ -174,7 +174,7 @@ async function getUserBaseInfo() {
 
 async function handleLogin() {
   try {
-    const response = await axios.post('/api/shop/user/login', {
+    const response = await request.post('/api/shop/user/login', {
       phone: loginForm.value.phone,
     }, {
       headers: {
@@ -214,7 +214,7 @@ const validateNum = async () => {
   };
 
   try {
-    const response = await axios.post("/api/sms/validateNum", data, {
+    const response = await request.post("/api/sms/validateNum", data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -317,7 +317,7 @@ body:after {
 }
 
 .login-card .column:last-child {
-  background: url("../../images/banner1.jpg") center;
+  background: url("../../assets/images/banner1.jpg") center;
   background-size: cover;
   position: relative;
   display: flex;

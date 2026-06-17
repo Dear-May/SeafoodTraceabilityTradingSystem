@@ -140,7 +140,7 @@
 
 <script setup>
 import {onMounted, ref} from "vue";
-import axios from "axios";
+import request from "@/api/request";
 import {ElMessage} from "element-plus";
 import router from "@/router";
 
@@ -153,7 +153,7 @@ async function checkUserPermission() {
     await router.replace('/')
   } else {
     try {
-      const response = await axios.post('/api/admin/checkUserPermission', {
+      const response = await request.post('/api/admin/checkUserPermission', {
         id: id,
       }, {
         headers: {
@@ -188,7 +188,7 @@ const formatDate = (date) => {
 
 async function initShops() {
   try {
-    const response = await axios.post('/api/admin/getAllReviewLicenses', {}, {
+    const response = await request.post('/api/admin/getAllReviewLicenses', {}, {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -207,7 +207,7 @@ const activeNames = ref([]);
 
 async function approveShop(index) {
   try {
-    const response = await axios.post('/api/admin/updateReviewLicenseStatus', {
+    const response = await request.post('/api/admin/updateReviewLicenseStatus', {
       id: shops.value[index].licenseInfo.id,
       status: "通过"
     }, {
@@ -228,7 +228,7 @@ async function approveShop(index) {
 
 async function rejectShop(index) {
   try {
-    const response = await axios.post('/api/admin/updateReviewLicenseStatus', {
+    const response = await request.post('/api/admin/updateReviewLicenseStatus', {
       id: shops.value[index].licenseInfo.id,
       status: "未通过"
     }, {

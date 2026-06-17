@@ -230,7 +230,7 @@ import {useUserShop} from "@/composables/useShopUser";
 import ShopSliderComponent from "@/components/ShopSliderComponent.vue";
 import {Plus} from "@element-plus/icons-vue";
 import {ElMessage} from "element-plus";
-import axios from "axios";
+import request from "@/api/request";
 import StoreHeaderView from "@/components/StoreHeaderView.vue";
 
 const loading = ref(true)
@@ -299,7 +299,7 @@ async function uploadImage() {
   }
   formData.append("image", uploadFile);
   try {
-    const response = await axios.post("/api/shop/ocr", {
+    const response = await request.post("/api/shop/ocr", {
       image: uploadFile.value
     }, {
       headers: {
@@ -381,7 +381,7 @@ async function submitLicense() {
   }
   formData.append("image", uploadFile);
   try {
-    const response = await axios.post("/api/shop/submitLicense", {
+    const response = await request.post("/api/shop/submitLicense", {
       image: uploadFile.value,
       id: wordResult.value.id,
       shopID: UserForm.value.shopid
@@ -404,7 +404,7 @@ async function submitLicense() {
 
 async function submitInfo() {
   try {
-    const response = await axios.post('/api/shop/submitShopInfo', wordResult.value, {
+    const response = await request.post('/api/shop/submitShopInfo', wordResult.value, {
       headers: {
         'Content-Type': 'application/json'
       },
