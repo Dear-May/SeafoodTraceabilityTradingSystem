@@ -10,7 +10,7 @@
             <h4 class="card-title mb-0">{{ UserForm.nickname }}</h4>
             <small class="text-muted" v-if="UserForm.role==='merchant'">店长</small>
             <small class="text-muted" v-else-if="UserForm.role==='staff'">店员</small>
-            <div class="mt-2 text-muted" style="text-align: left;">
+            <div class="mt-2 text-muted" class="text-left">
               <div>手机号：{{ UserForm.phone }}</div>
               <div>邮箱：{{ UserForm.email }}</div>
             </div>
@@ -136,7 +136,7 @@
 import {onMounted, ref} from 'vue'
 import * as echarts from 'echarts'
 import {useUserShop} from "@/composables/useShopUser";
-import axios from 'axios'
+import request from "@/api/request"
 import {ElMessage} from "element-plus";
 
 const {UserForm, initUserSession, initShopInfo, shopForm} = useUserShop();
@@ -147,7 +147,7 @@ const loading = ref(false);
 
 async function initTopStats() {
   try {
-    const response = await axios.post('/api/shop/info/getCardInfo', {
+    const response = await request.post('/api/shop/info/getCardInfo', {
       shopID: shopForm.value.shopID,
     }, {
       headers: {
@@ -169,7 +169,7 @@ const signedInData = ref([]);
 
 async function initAttendanceInfo() {
   try {
-    const response = await axios.post('/api/shop/staff/attendance/getShopStaffAttendance', {
+    const response = await request.post('/api/shop/staff/attendance/getShopStaffAttendance', {
       userId: UserForm.value.id
     }, {
       headers: {
@@ -207,7 +207,7 @@ const extractDate = (dateString) => {
 async function handleAttendance(date) {
   if (date === extractDate(currentDate.value) && getAttendanceStatus(date) !== "已签到") {
     try {
-      const response = await axios.post('/api/shop/staff/attendance/signIn', {
+      const response = await request.post('/api/shop/staff/attendance/signIn', {
         userId: UserForm.value.id,
         date: date,
         shopID: shopForm.value.shopID,
@@ -234,7 +234,7 @@ const courseData = ref([]);
 
 async function initCourseData() {
   try {
-    const response = await axios.post('/api/shop/info/getProductBuyInfo', {
+    const response = await request.post('/api/shop/info/getProductBuyInfo', {
       shopID: shopForm.value.shopID,
     }, {
       headers: {
@@ -255,7 +255,7 @@ const lineChart = ref(null);
 
 async function initLineChart() {
   try {
-    const response = await axios.post('/api/shop/info/getProductTrendInfo', {
+    const response = await request.post('/api/shop/info/getProductTrendInfo', {
       shopID: shopForm.value.shopID,
     }, {
       headers: {
@@ -283,7 +283,7 @@ const barChart = ref(null)
 
 async function initBarChart() {
   try {
-    const response = await axios.post('/api/shop/info/getUserInfo', {
+    const response = await request.post('/api/shop/info/getUserInfo', {
       shopID: shopForm.value.shopID,
     }, {
       headers: {
@@ -310,7 +310,7 @@ const pieChart = ref(null)
 
 async function initPieChart() {
   try {
-    const response = await axios.post('/api/shop/info/getOrderStatusInfo', {
+    const response = await request.post('/api/shop/info/getOrderStatusInfo', {
       shopID: shopForm.value.shopID,
     }, {
       headers: {

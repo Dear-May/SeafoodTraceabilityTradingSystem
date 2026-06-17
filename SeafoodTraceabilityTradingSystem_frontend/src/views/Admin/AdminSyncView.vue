@@ -41,7 +41,7 @@
 import router from "@/router";
 import {onMounted} from "vue";
 import {ElMessage} from "element-plus";
-import axios from "axios";
+import request from "@/api/request";
 
 let id = null;
 
@@ -52,7 +52,7 @@ async function checkUserPermission() {
     await router.replace('/')
   } else {
     try {
-      const response = await axios.post('/api/admin/checkUserPermission', {
+      const response = await request.post('/api/admin/checkUserPermission', {
         id: id,
       }, {
         headers: {
@@ -73,7 +73,7 @@ async function checkUserPermission() {
 
 async function syncData() {
   try {
-    const response = await axios.post('/api/admin/syncGoodData', {
+    const response = await request.post('/api/admin/syncGoodData', {
       token: id,
     }, {
       headers: {

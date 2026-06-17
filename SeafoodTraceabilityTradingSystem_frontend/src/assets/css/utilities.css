@@ -1,0 +1,70 @@
+/* ===== Utility CSS Classes ===== */
+/* Font weight */
+.fw-bold { font-weight: bold; }
+.fw-normal { font-weight: normal; }
+
+/* Font size */
+.fs-20 { font-size: 20px; }
+.fs-18 { font-size: 18px; }
+.fs-16 { font-size: 16px; }
+.fs-14 { font-size: 14px; }
+.fs-24 { font-size: 24px; }
+.fs-30 { font-size: 30px; }
+
+/* Text alignment */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* Colors */
+.c-red { color: #e02020; }
+.c-999 { color: #999; }
+.c-333 { color: #333; }
+.c-555 { color: #555555; }
+
+/* Width / Height */
+.w-20 { width: 20%; }
+.w-30 { width: 30%; }
+.w-50 { width: 50%; }
+.w-70 { width: 70%; }
+.w-100 { width: 100%; }
+.h-50 { height: 50%; }
+
+/* Display */
+.d-flex { display: flex; }
+.d-none { display: none; }
+.align-center { align-items: center; }
+.justify-center { justify-content: center; }
+
+/* Spacing */
+.pl-20 { padding-left: 20px; }
+.mb-20 { margin-bottom: 20px; }
+.ml-10 { margin-left: 10px; }
+
+/* Borders */
+.border-l-r { border-left: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; }
+.rounded-20 { border-radius: 20px; }
+.rounded-10 { border-radius: 10px; }
+
+/* Button */
+.btn-danger-custom { background-color: #e02020 !important; border-color: #e02020 !important; }
+
+/* Combined common patterns */
+.title-text { font-size: 16px; font-weight: bold; }
+.subtitle-text { font-size: 14px; color: #999; }
+.section-title { font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+.info-text { color: #999; font-size: 14px; }
+
+.c-000 { color: #000000; }
+.mt-15 { margin-top: 15px; }
+.text-start { text-align: start; }
+.text-end { text-align: end; }
+.w-40 { width: 40%; }
+.w-100-h-100 { width: 100%; height: 100%; }
+.d-inline-block { display: inline-block; }
+.mr-10 { margin-right: 10px; }
+.pos-relative { position: relative; }
+.section-desc { font-size: 18px; color: #999; font-weight: normal; margin-left: 10px; margin-bottom: 20px; }
+.section-desc-sm { font-size: 14px; color: #999; font-weight: normal; margin-left: 10px; }
+.price-text { font-weight: bold; color: #e02020; margin-bottom: 20px; }
+.d-flex-align { display: flex; align-items: center; }

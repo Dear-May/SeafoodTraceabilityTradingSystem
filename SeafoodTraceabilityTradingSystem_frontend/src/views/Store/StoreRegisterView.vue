@@ -119,7 +119,7 @@ import FooterComponent from "@/components/FooterComponent.vue";
 import {ElMessage} from "element-plus";
 import {Plus} from "@element-plus/icons-vue";
 import Vcode from "vue3-puzzle-vcode";
-import axios from "axios";
+import request from "@/api/request";
 import router from "@/router";
 
 const logoComponent = ref(null);
@@ -220,7 +220,7 @@ const onSuccess = () => {
 const getMsgNum = async () => {
   setButtonStatus();
   try {
-    const response = await axios.post(
+    const response = await request.post(
         "/api/sms/smsXxs",
         {
           phoneNumber: registerForm.value.phone,
@@ -272,7 +272,7 @@ const validateNum = async () => {
   };
 
   try {
-    const response = await axios.post("/api/sms/validateNum", data, {
+    const response = await request.post("/api/sms/validateNum", data, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -357,7 +357,7 @@ async function finishRegister() {
   }
   if (registerForm.value.role === "staff") {
     try {
-      const response = await axios.post("/api/shop/user/isAccessShop", {
+      const response = await request.post("/api/shop/user/isAccessShop", {
         shopId: registerForm.value.shopId
       }, {
         headers: {
@@ -375,7 +375,7 @@ async function finishRegister() {
     }
   }
   try {
-    const response = await axios.post("/api/shop/user/register", registerForm.value, {
+    const response = await request.post("/api/shop/user/register", registerForm.value, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -494,11 +494,11 @@ body:after {
 }
 
 .merchant-icon {
-  background-image: url("@/images/merchant-icon.png");
+  background-image: url("@/assets/images/merchant-icon.png");
 }
 
 .staff-icon {
-  background-image: url("@/images/staff-icon.png");
+  background-image: url("@/assets/images/staff-icon.png");
 }
 
 .dots {
