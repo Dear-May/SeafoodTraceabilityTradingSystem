@@ -1,4 +1,4 @@
-﻿# 🐟 海潮 - 海鲜溯源交易平台（前端）
+# 🐟 海潮 - 海鲜溯源交易平台（前端）
 
 > 基于 Vue 3 构建的现代化海鲜电商前端应用，支持商品浏览、溯源查询、图像搜索、直播带货等完整电商功能。
 
@@ -29,7 +29,7 @@
 
 ## 📁 项目结构
 
-\\\
+```
 src/
 ├── api/                          # API 服务层
 │   ├── request.ts                # axios 实例 + 拦截器
@@ -130,7 +130,7 @@ src/
 ├── main.js / .ts                 # 应用入口
 ├── App.vue                       # 根组件
 └── env.d.ts                      # TypeScript 类型声明
-\\\
+```
 
 ## 🛠️ 本地开发
 
@@ -141,7 +141,7 @@ src/
 
 ### 安装运行
 
-\\\ash
+```bash
 # 安装依赖
 npm install
 
@@ -153,16 +153,16 @@ npm run build
 
 # 代码检查
 npm run lint
-\\\
+```
 
 ### 环境变量
 
 在项目根目录创建 \.env.local\ 文件：
 
-\\\env
+```env
 # API 服务地址 (默认空，使用同域)
 VUE_APP_API_BASE_URL=http://localhost:8888
-\\\
+```
 
 ## 🧩 后端服务
 
@@ -177,13 +177,13 @@ VUE_APP_API_BASE_URL=http://localhost:8888
 
 在项目根目录使用 Docker Compose 启动所有服务：
 
-\\\ash
+```bash
 # 启动全部服务
 docker-compose up -d
 
 # 仅启动基础设施 (本地开发)
 docker-compose -f docker-compose.dev.yml up -d
-\\\
+```
 
 ## ✨ 核心功能
 
