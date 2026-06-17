@@ -1,4 +1,4 @@
-package com.shopping_c_backend.module.trace;
+﻿package com.shopping_c_backend.module.trace;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -39,7 +39,7 @@ public class TraceServiceImpl implements TraceService {
         boolean hasKey = redisTemplate.hasKey(key);
         if (hasKey) {
             List<Map<String, Object>> list = valueOperations.get(key);
-            logger.info("从缓存中获取数据:{}", key);
+            logger.info("浠庣紦瀛樹腑鑾峰彇鏁版嵁:{}", key);
             return list;
         } else {
             List<Map<String, Object>> list = new ArrayList<>();
@@ -57,7 +57,7 @@ public class TraceServiceImpl implements TraceService {
         List<Map<String, Object>> list;
         if (hasKey) {
             list = valueOperations.get(key);
-            logger.info("从缓存中获取数据:{}", key);
+            logger.info("浠庣紦瀛樹腑鑾峰彇鏁版嵁:{}", key);
         } else {
             list = new ArrayList<>();
             List<TraceGoodEntity> traceGoodEntities = traceMapper.selectGoodByTraceID(goodID);
@@ -97,14 +97,14 @@ public class TraceServiceImpl implements TraceService {
                 TraceUserEntity traceUserEntity = traceMapper.selectTraceUserByInformationID(traceInformationEntity.getLinkID());
                 ShopUserEntity shopUserEntity = shopMapper.findUserById(traceUserEntity.getUserID());
                 infoMap.put("operator", shopUserEntity.getNickname());
-                infoMap.put("content", traceInformationEntity.getText());
-                infoMap.put("images", traceInformationEntity.getImgUrL());
+                infoMap.put("content", traceInformationEntity.getInfo());
+                infoMap.put("images", traceInformationEntity.getImages());
                 InfoList.add(infoMap);
             }
             map.put("entries", InfoList);
             list.add(map);
         }
-        logger.info("从数据库中获取数据:{}", key);
+        logger.info("浠庢暟鎹簱涓幏鍙栨暟鎹?{}", key);
     }
 
     public List<String> createTrace(List<String> goodIDs, String text, int userID, int shopID) {
@@ -146,7 +146,7 @@ public class TraceServiceImpl implements TraceService {
     public String addTrace(String traceID, String text, int userID, int shopID) {
         String newLinkID;
         TraceInformationEntity traceInformationEntity = traceMapper.selectLastTraceInformation(traceID);
-        // 获取最后的-后的数字
+        // 鑾峰彇鏈€鍚庣殑-鍚庣殑鏁板瓧
         String[] split = traceInformationEntity.getLinkID().split("-");
         int index = Integer.parseInt(split[split.length - 1]);
         newLinkID = traceID + "-" + (index + 1);
@@ -154,7 +154,7 @@ public class TraceServiceImpl implements TraceService {
         int result = traceMapper.createTraceInfo(newTraceInformationEntity);
         if (result == 0) return null;
         TraceUserEntity traceUserEntity = traceMapper.selectLastTraceUser(traceID);
-        // 获取最后的-后的数字
+        // 鑾峰彇鏈€鍚庣殑-鍚庣殑鏁板瓧
         String[] split2 = traceUserEntity.getLinkID().split("-");
         int index2 = Integer.parseInt(split2[split2.length - 1]);
         String newUserLinkID = traceID + "-" + (index2 + 1);
@@ -232,13 +232,14 @@ public class TraceServiceImpl implements TraceService {
     }
 
     private void deleteTraceRedisCache(String key) {
-        logger.info("删除缓存 {}", key);
+        logger.info("鍒犻櫎缂撳瓨 {}", key);
         ValueOperations<String, List<Map<String, Object>>> valueOperations = redisTemplate.opsForValue();
-        //判断redis中是否有键为key的缓存
+        //鍒ゆ柇redis涓槸鍚︽湁閿负key鐨勭紦瀛?
         boolean hasKey = redisTemplate.hasKey(key);
         if (hasKey) {
             valueOperations.getOperations().delete(key);
-            logger.info("删除已缓存商品信息缓存:{}", key);
+            logger.info("鍒犻櫎宸茬紦瀛樺晢鍝佷俊鎭紦瀛?{}", key);
         }
     }
 }
+
