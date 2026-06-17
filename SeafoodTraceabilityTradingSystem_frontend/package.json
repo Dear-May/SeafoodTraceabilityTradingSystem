@@ -17,6 +17,7 @@
     "element-plus": "^2.8.5",
     "emoji-picker-element": "^1.26.0",
     "html2canvas": "^1.4.1",
+    "marked": "^18.0.5",
     "pinia": "^2.2.6",
     "three": "^0.121.0",
     "v-viewer": "^3.0.21",

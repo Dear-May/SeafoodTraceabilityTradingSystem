@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <HeaderComponent/>
   <el-container>
     <div class="shop-container row">
@@ -7,7 +7,7 @@
           <div class="col-3">
             <div class="live-indicator" v-if="isLive" @click="()=>{router.push('/live/show?id='+shopForm.id)}">
               <img :src="shopForm.avatar" class="shop-avatar" alt="shop-avatar">
-              <div class="live-label">直播中</div>
+              <div class="live-label">鐩存挱涓?/div>
             </div>
             <img v-else :src="shopForm.avatar" class="shop-avatar" alt="shop-avatar">
           </div>
@@ -28,15 +28,15 @@
           </el-tag>
           &nbsp;
           <el-tag type="info">
-            客服满意度96%
+            瀹㈡湇婊℃剰搴?6%
           </el-tag>
           &nbsp;
           <el-tag type="info">
-            平均13小时发货
+            骞冲潎13灏忔椂鍙戣揣
           </el-tag>
           &nbsp;
           <el-tag type="info">
-            物流体验优秀
+            鐗╂祦浣撻獙浼樼
           </el-tag>
         </div>
       </div>
@@ -45,11 +45,11 @@
       <div class="col-2" class="mt-15 text-end">
         <el-button @click="handleChat">
           <a class="bi bi-chat"></a>&nbsp;
-          联系客服
+          鑱旂郴瀹㈡湇
         </el-button>
         <el-button @click="handleShop">
           <a class="bi bi-house"></a>
-          进入店铺
+          杩涘叆搴楅摵
         </el-button>
       </div>
     </div>
@@ -68,9 +68,9 @@
             <div class="left">
               <img :src="good_big_show" alt="good-image"
                    style="width: 100%; height: 100%; border-radius: 10px; display: inline-block;">
-              <!-- 鼠标层罩 -->
+              <!-- 榧犳爣灞傜僵 -->
               <div v-show="topShow" class="top" :style="topStyle"></div>
-              <!-- 最顶层覆盖了整个原图空间的透明层罩 -->
+              <!-- 鏈€椤跺眰瑕嗙洊浜嗘暣涓師鍥剧┖闂寸殑閫忔槑灞傜僵 -->
               <div
                   class="maskTop"
                   @mouseenter="enterHandler"
@@ -92,21 +92,21 @@
           <el-container>
             <div class="good-item-desc">
               <h1 class="good-title" class="fw-bold">{{ goodForm.name }}</h1>
-              <h3 class="good-title" class="price-text">￥{{ showPrice }}
-                <span class="good-price" class="section-desc-sm">已售出: 10件</span>
+              <h3 class="good-title" class="price-text">锟{ showPrice }}
+                <span class="good-price" class="section-desc-sm">宸插敭鍑? 10浠?/span>
                 <span>
                     <el-button text @click="openDrawer"
-                    >溯源信息查看</el-button
+                    >婧簮淇℃伅鏌ョ湅</el-button
                     >
                 </span>
               </h3>
               <div class="pos-relative">
                 <p class="good-price"
-                   class="section-desc">配&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;送:&nbsp;&nbsp;&nbsp;&nbsp;
+                   class="section-desc">閰?nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;閫?&nbsp;&nbsp;&nbsp;&nbsp;
                   <span
                       class="c-000">{{
                       goodForm.location
-                    }}&nbsp;&nbsp;&nbsp;&nbsp;至&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                    }}&nbsp;&nbsp;&nbsp;&nbsp;鑷?nbsp;&nbsp;&nbsp;&nbsp;</span>
                   <span class="c-000 fs-18" ref="boxRef">
                   {{ showAddress }}
                   <el-icon class="el-icon--right" @click="toggleAddressList">
@@ -115,18 +115,17 @@
                   </el-icon>
                 </span>
                   <span style="font-size: 18px; color: #999;">
-                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;快递: 免运费 48小时内发货
-              </span>
+                <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;蹇€? 鍏嶈繍璐?48灏忔椂鍐呭彂璐?              </span>
                 </p>
 
                 <div v-if="showAddressModal" class="address-list"
                      :style="{ top: addressListTop + 'px', left: addressListLeft + 'px' }">
-                  <h4 class="address-title">选择收货地址</h4><br>
+                  <h4 class="address-title">閫夋嫨鏀惰揣鍦板潃</h4><br>
                   <div class="address-item" v-for="(item, index) in addresses.value" :key="index"
                        @click="changeAddress(item)">
                     <div class="header">
                       <span>{{ item.name }}</span>
-                      <span v-if="item.isDefault" class="default">默认</span>
+                      <span v-if="item.isDefault" class="default">榛樿</span>
                     </div>
                     <p>{{ item.phone }}</p>
                     <p>{{ item.address }}</p>
@@ -134,12 +133,12 @@
                 </div>
               </div>
               <p class="good-price"
-                 class="section-desc">保&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;障:&nbsp;&nbsp;&nbsp;&nbsp;
-                <span class="c-000">退货宝 7天无理由退货 极速退款</span>
+                 class="section-desc">淇?nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;闅?&nbsp;&nbsp;&nbsp;&nbsp;
+                <span class="c-000">閫€璐у疂 7澶╂棤鐞嗙敱閫€璐?鏋侀€熼€€娆?/span>
               </p>
               <div class="good-price"
                    class="section-desc">
-                规格分类：&nbsp;&nbsp;
+                瑙勬牸鍒嗙被锛?nbsp;&nbsp;
                 <div v-for="(spec, index) in goodForm.spec" :key="index"
                      class="d-inline-block mr-10">
                   <el-button :class="{ active: activeSpec === spec }" color="#e23030" :dark="isDark" plain
@@ -151,9 +150,9 @@
               </div>
               <div class="good-price"
                    class="section-desc">
-                数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量:&nbsp;&nbsp;&nbsp;&nbsp;
+                鏁?nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;閲?&nbsp;&nbsp;&nbsp;&nbsp;
                 <el-input-number v-model="num" :min="1" :max="10"/>
-                <span style="font-size: 18px; color: #999; margin-left: 10px;">有货</span>
+                <span style="font-size: 18px; color: #999; margin-left: 10px;">鏈夎揣</span>
               </div>
             </div>
             <el-footer style="bottom: 35vh;width: 100%; ">
@@ -163,17 +162,16 @@
                     class="w-40"
                 >
                   <el-button type="primary" size="large" @click="checkOut" class="good-buy">
-                    立即购买
+                    绔嬪嵆璐拱
                   </el-button>
                   <el-button type="primary" size="large" @click="addToCart" class="good-buy"
                              style="background-color: #e6a23c; border-radius: 0 10px 10px 0;">
-                    加入购物车
-                  </el-button>
+                    鍔犲叆璐墿杞?                  </el-button>
                 </el-button-group>
                 <a class="good-star">
                   <i class="bi bi-star" v-if="!isFavorite" @click="changeFavorite(true)"></i>
                   <i class="bi bi-star-fill" class="c-red" v-else @click="changeFavorite(false)"></i>
-                  <span>收藏</span>
+                  <span>鏀惰棌</span>
                 </a>
               </div>
             </el-footer>
@@ -181,25 +179,25 @@
         </div>
       </div>
       <el-anchor :offset="70" direction="horizontal">
-        <el-anchor-link :href="`#用户评价`">
+        <el-anchor-link :href="`#鐢ㄦ埛璇勪环`">
           <a class="link-item">{{ locale['Basic Usage'] }}</a>
         </el-anchor-link>
-        <el-anchor-link :href="`#参数信息`">
+        <el-anchor-link :href="`#鍙傛暟淇℃伅`">
           <a class="link-item">{{ locale['Horizontal Mode'] }}</a>
         </el-anchor-link>
-        <el-anchor-link :href="`#图文详细`">
+        <el-anchor-link :href="`#鍥炬枃璇︾粏`">
           <a class="link-item">{{ locale['Scroll Container'] }}</a>
         </el-anchor-link>
-        <el-anchor-link :href="`#看了又看`">
+        <el-anchor-link :href="`#鐪嬩簡鍙堢湅`">
           <a class="link-item">{{ locale['Looks good'] }}</a>
         </el-anchor-link>
       </el-anchor>
       <el-container>
         <div class="good-comment">
-          <h1 class="section-title" id="用户评价">
-            用户评价</h1>
+          <h1 class="section-title" id="鐢ㄦ埛璇勪环">
+            鐢ㄦ埛璇勪环</h1>
           <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleTabClick">
-            <el-tab-pane label="全部" name="first">
+            <el-tab-pane label="鍏ㄩ儴" name="first">
               <div class="good-comment-item" v-for="(comment, index) in filterComment" :key="index">
                 <div class="good-comment-avatar">
                   <img :src="comment.userAvatar" alt="good-avatar">
@@ -215,10 +213,10 @@
                     {{ comment.commentText }}
                   </p>
                   <p class="good-comment-spec">
-                    规格: <span>{{ comment.specname }}</span>
+                    瑙勬牸: <span>{{ comment.specname }}</span>
                   </p>
                   <p class="good-comment-time">
-                    时间: <span>{{ formatDate(comment.time) }}</span>
+                    鏃堕棿: <span>{{ formatDate(comment.time) }}</span>
                   </p>
                   <div class="good-comment-images" v-if="comment.images!== null">
                     <div v-for="(image, index) in comment.images" :key="index">
@@ -228,7 +226,7 @@
                 </div>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="有图" name="second">
+            <el-tab-pane label="鏈夊浘" name="second">
               <div class="good-comment-item" v-for="(comment, index) in filterComment" :key="index">
                 <div class="good-comment-avatar">
                   <img :src="comment.userAvatar" alt="good-avatar">
@@ -244,10 +242,10 @@
                     {{ comment.commentText }}
                   </p>
                   <p class="good-comment-spec">
-                    规格: <span>{{ comment.specname }}</span>
+                    瑙勬牸: <span>{{ comment.specname }}</span>
                   </p>
                   <p class="good-comment-time">
-                    时间: <span>{{ formatDate(comment.time) }}</span>
+                    鏃堕棿: <span>{{ formatDate(comment.time) }}</span>
                   </p>
                   <div class="good-comment-images">
                     <div v-for="(image, index) in comment.images" :key="index">
@@ -259,8 +257,8 @@
             </el-tab-pane>
           </el-tabs>
           <div class="good-desc">
-            <h1 class="section-title" id="参数信息">
-              参数信息</h1>
+            <h1 class="section-title" id="鍙傛暟淇℃伅">
+              鍙傛暟淇℃伅</h1>
             <el-descriptions
                 class="margin-top"
                 :column="3"
@@ -269,7 +267,7 @@
               <el-descriptions-item>
                 <template #label>
                   <div class="cell-item">
-                    商品名称
+                    鍟嗗搧鍚嶇О
                   </div>
                 </template>
                 {{ goodForm.name }}
@@ -277,7 +275,7 @@
               <el-descriptions-item>
                 <template #label>
                   <div class="cell-item">
-                    上架时间
+                    涓婃灦鏃堕棿
                   </div>
                 </template>
                 {{ goodForm.uploadTime }}
@@ -288,7 +286,7 @@
                     <el-icon :style="iconStyle">
                       <location/>
                     </el-icon>
-                    产地
+                    浜у湴
                   </div>
                 </template>
                 {{ goodForm.location }}
@@ -299,7 +297,7 @@
                     <el-icon :style="iconStyle">
                       <tickets/>
                     </el-icon>
-                    种类
+                    绉嶇被
                   </div>
                 </template>
                 <el-tag size="small">School</el-tag>
@@ -310,7 +308,7 @@
                     <el-icon :style="iconStyle">
                       <office-building/>
                     </el-icon>
-                    地址
+                    鍦板潃
                   </div>
                 </template>
                 {{ goodForm.location }}
@@ -319,29 +317,26 @@
             <el-divider/>
           </div>
           <div class="good-desc">
-            <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;" id="看了又看">
-              图文详细</h1>
+            <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;" id="鐪嬩簡鍙堢湅">
+              鍥炬枃璇︾粏</h1>
             <div class="good-desc-content">
               <p>
-                商品详情页的图文详情，可以是商品的介绍、规格、包装、售后保障等内容，让用户更直观的了解商品。
-              </p>
+                鍟嗗搧璇︽儏椤电殑鍥炬枃璇︽儏锛屽彲浠ユ槸鍟嗗搧鐨勪粙缁嶃€佽鏍笺€佸寘瑁呫€佸敭鍚庝繚闅滅瓑鍐呭锛岃鐢ㄦ埛鏇寸洿瑙傜殑浜嗚В鍟嗗搧銆?              </p>
               <p>
-                图文详情页的布局可以根据产品的类型、内容、阅读习惯等因素进行调整，以提升用户的阅读体验。
-              </p>
+                鍥炬枃璇︽儏椤电殑甯冨眬鍙互鏍规嵁浜у搧鐨勭被鍨嬨€佸唴瀹广€侀槄璇讳範鎯瓑鍥犵礌杩涜璋冩暣锛屼互鎻愬崌鐢ㄦ埛鐨勯槄璇讳綋楠屻€?              </p>
               <p>
-                图文详情页的设计要突出商品的主要特点，突出商品的图片、文字，并配合配色、字体、排版等元素，让用户快速理解商品的价值。
-              </p>
+                鍥炬枃璇︽儏椤电殑璁捐瑕佺獊鍑哄晢鍝佺殑涓昏鐗圭偣锛岀獊鍑哄晢鍝佺殑鍥剧墖銆佹枃瀛楋紝骞堕厤鍚堥厤鑹层€佸瓧浣撱€佹帓鐗堢瓑鍏冪礌锛岃鐢ㄦ埛蹇€熺悊瑙ｅ晢鍝佺殑浠峰€笺€?              </p>
             </div>
             <el-divider/>
             <div class="good-desc">
               <h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;" id="${locale['looks-good']}">
-                看了又看</h1>
+                鐪嬩簡鍙堢湅</h1>
               <div class="promotion-section">
                 <div class="promotion-card" v-for="product in recommendedProducts" :key="product.id">
                   <img :src="product.image" alt="Promotion" class="promotion-image">
                   <div class="promotion-info">
                     <h3>{{ product.name.slice(0, 10) + '...' }}</h3>
-                    <span class="promotion-price">￥{{ product.price }}</span>
+                    <span class="promotion-price">锟{ product.price }}</span>
                   </div>
                 </div>
               </div>
@@ -352,7 +347,7 @@
     </div>
     <el-drawer
         v-model="table"
-        title="溯源信息"
+        title="婧簮淇℃伅"
         direction="rtl"
         size="25%"
     >
@@ -363,7 +358,7 @@
             :label="formatDate(trace.date)"
             :name="trace.id"
         >
-          <!-- 时间线展示 -->
+          <!-- 鏃堕棿绾垮睍绀?-->
           <el-timeline>
             <el-timeline-item
                 v-for="(entry, index) in trace.entries"
@@ -373,11 +368,11 @@
             >
               <div class="timeline-entry">
                 <p class="timeline-content">
-                  <strong>操作人:</strong> {{ entry.operator }}
+                  <strong>鎿嶄綔浜?</strong> {{ entry.operator }}
                   <br/>
-                  {{ entry.content }}
+                  <MarkdownRender :content="entry.content" />
                 </p>
-                <!-- 图片展示 -->
+                <!-- 鍥剧墖灞曠ず -->
                 <div class="timeline-images" v-if="entry.images && entry.images.length">
                   <el-image
                       v-for="(image, imgIndex) in entry.images"
@@ -409,6 +404,7 @@ import {ElMessage} from "element-plus";
 import request from "@/api/request";
 import router from "@/router";
 import useUser from "@/composables/useUser";
+import MarkdownRender from '@/components/MarkdownRender.vue';
 
 const {UserInfoForm, initUserSession} = useUser()
 
@@ -461,16 +457,15 @@ async function loadTraceData() {
     if (response.data != null)
       traceData.value = response.data;
     else
-      ElMessage.error("获取溯源信息失败")
+      ElMessage.error("鑾峰彇婧簮淇℃伅澶辫触")
   } catch (e) {
-    ElMessage.error("获取溯源信息失败")
+    ElMessage.error("鑾峰彇婧簮淇℃伅澶辫触")
   }
 }
 
 const openDrawer = async () => {
   await loadTraceData();
-  activeTab.value = traceData.value[0]?.id; // 默认激活第一个标签
-  table.value = true;
+  activeTab.value = traceData.value[0]?.id; // 榛樿婵€娲荤涓€涓爣绛?  table.value = true;
 };
 
 async function getAddressList() {
@@ -494,10 +489,10 @@ async function getAddressList() {
       showAddress.value = addresses.value[0].address;
       selectAddressId.value = addresses.value[0].id;
     } else {
-      ElMessage.error('获取地址列表失败');
+      ElMessage.error('鑾峰彇鍦板潃鍒楄〃澶辫触');
     }
   } catch (err) {
-    ElMessage.error('获取地址列表失败');
+    ElMessage.error('鑾峰彇鍦板潃鍒楄〃澶辫触');
   }
 }
 
@@ -516,7 +511,7 @@ async function getFavoriteStatus(goodsId) {
       isFavorite.value = true;
     }
   } catch (err) {
-    ElMessage.error('获取收藏状态失败')
+    ElMessage.error('鑾峰彇鏀惰棌鐘舵€佸け璐?)
   }
 }
 
@@ -531,17 +526,16 @@ async function init() {
       withCredentials: true
     })
     if (response.data.shopAvatar !== null) {
-      // 商家信息
+      // 鍟嗗淇℃伅
       shopForm.value.id = response.data.shopID;
       shopForm.value.name = response.data.shopName;
       shopForm.value.avatar = response.data.shopAvatar;
       shopForm.value.description = response.data.shopDesc.substring(0, 10) + "...";
-      // 主商品信息
-      goodForm.value.name = response.data.goodName;
+      // 涓诲晢鍝佷俊鎭?      goodForm.value.name = response.data.goodName;
       document.title = response.data.goodName;
       goodForm.value.location = response.data.goodLocation;
       goodForm.value.uploadTime = response.data.goodUploadTime;
-      // 规则信息
+      // 瑙勫垯淇℃伅
       const showUrls = response.data.specificationEntities.map(item => item.Showurl);
       goodForm.value.images = [];
       showUrls.forEach(image => {
@@ -564,7 +558,7 @@ async function init() {
       await getFavoriteStatus(goodID.value);
     }
   } catch (error) {
-    ElMessage.error("获取商品信息失败");
+    ElMessage.error("鑾峰彇鍟嗗搧淇℃伅澶辫触");
   }
 }
 
@@ -580,9 +574,9 @@ async function addFootMark() {
       withCredentials: true
     })
     if (response.data.code === 400)
-      ElMessage.error("历史记录添加失败")
+      ElMessage.error("鍘嗗彶璁板綍娣诲姞澶辫触")
   } catch (error) {
-    ElMessage.error("历史记录添加失败")
+    ElMessage.error("鍘嗗彶璁板綍娣诲姞澶辫触")
   }
 }
 
@@ -590,19 +584,19 @@ document.title = "Good Info";
 
 const value = 4.8;
 
-// 数据定义
+// 鏁版嵁瀹氫箟
 const topStyle = ref({transform: ""});
 const r_img = ref({});
 const topShow = ref(false);
 const rShow = ref(false);
 
-// 鼠标进入原图空间函数
+// 榧犳爣杩涘叆鍘熷浘绌洪棿鍑芥暟
 const enterHandler = () => {
   topShow.value = true;
   rShow.value = true;
 };
 
-// 鼠标移动函数
+// 榧犳爣绉诲姩鍑芥暟
 const moveHandler = (event) => {
   let x = event.offsetX;
   let y = event.offsetY;
@@ -620,7 +614,7 @@ const moveHandler = (event) => {
   r_img.value.transform = `translate(-${2 * topX}px,-${2 * topY}px)`;
 };
 
-// 鼠标移出函数
+// 榧犳爣绉诲嚭鍑芥暟
 const outHandler = () => {
   topShow.value = false;
   rShow.value = false;
@@ -650,8 +644,8 @@ const addressListTop = ref(0);
 const addressListLeft = ref(0);
 const toggleAddressList = () => {
   if (showAddressModal.value) {
-    addressListTop.value = boxRef.value.offsetTop + 30; // 上方位置
-    addressListLeft.value = boxRef.value.offsetLeft - 100; // 左侧位置
+    addressListTop.value = boxRef.value.offsetTop + 30; // 涓婃柟浣嶇疆
+    addressListLeft.value = boxRef.value.offsetLeft - 100; // 宸︿晶浣嶇疆
   }
 };
 
@@ -684,11 +678,11 @@ async function checkOut() {
       withCredentials: true
     })
     if (response.data.code === "fail")
-      ElMessage.error("下单失败")
+      ElMessage.error("涓嬪崟澶辫触")
     else
       await router.push('/payGoods/ready?token=' + response.data)
   } catch (error) {
-    ElMessage.error("下单失败")
+    ElMessage.error("涓嬪崟澶辫触")
   }
 }
 
@@ -709,13 +703,13 @@ async function addToCart() {
       withCredentials: true
     })
     if (response.data.code === 200) {
-      ElMessage.success("加入购物车成功")
+      ElMessage.success("鍔犲叆璐墿杞︽垚鍔?)
       await rightWidget.value.getCartCount();
     } else if (response.data.code === 400) {
-      ElMessage.error("加入购物车失败")
+      ElMessage.error("鍔犲叆璐墿杞﹀け璐?)
     }
   } catch (error) {
-    ElMessage.error("加入购物车失败")
+    ElMessage.error("鍔犲叆璐墿杞﹀け璐?)
   }
 }
 
@@ -734,10 +728,10 @@ async function changeFavorite(status) {
       if (response.data.code === 200) {
         isFavorite.value = true;
       } else if (response.data.code === 400) {
-        ElMessage.error("收藏失败")
+        ElMessage.error("鏀惰棌澶辫触")
       }
     } catch (error) {
-      ElMessage.error("收藏失败")
+      ElMessage.error("鏀惰棌澶辫触")
     }
   } else {
     try {
@@ -753,19 +747,19 @@ async function changeFavorite(status) {
       if (response.data.code === 200) {
         isFavorite.value = false;
       } else if (response.data.code === 400) {
-        ElMessage.error("取消收藏失败")
+        ElMessage.error("鍙栨秷鏀惰棌澶辫触")
       }
     } catch (error) {
-      ElMessage.error("取消收藏失败")
+      ElMessage.error("鍙栨秷鏀惰棌澶辫触")
     }
   }
 }
 
 const locale = {
-  "Basic Usage": "用户评价",
-  "Horizontal Mode": "参数信息",
-  "Scroll Container": "图文详细",
-  "Looks good": "看了又看",
+  "Basic Usage": "鐢ㄦ埛璇勪环",
+  "Horizontal Mode": "鍙傛暟淇℃伅",
+  "Scroll Container": "鍥炬枃璇︾粏",
+  "Looks good": "鐪嬩簡鍙堢湅",
 }
 const activeName = ref("first");
 const CommentList = ref([]);
@@ -786,15 +780,15 @@ async function initComment() {
       filterComment.value = CommentList.value;
     }
   } catch (error) {
-    ElMessage.error('获取评论失败')
+    ElMessage.error('鑾峰彇璇勮澶辫触')
   }
 }
 
 function formatDate(dateString) {
   const date = new Date(dateString);
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // 月份需加1，并补零
-  const day = String(date.getDate()).padStart(2, '0'); // 补零
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // 鏈堜唤闇€鍔?锛屽苟琛ラ浂
+  const day = String(date.getDate()).padStart(2, '0'); // 琛ラ浂
 
   return `${year}-${month}-${day}`;
 }
@@ -808,13 +802,12 @@ function handleTabClick() {
 }
 
 const handleScroll = () => {
-  // 判断是否到达底部并加载更多商品
-  if (loading_recommend.value) return; // 如果正在加载中，则不触发新的请求
+  // 鍒ゆ柇鏄惁鍒拌揪搴曢儴骞跺姞杞芥洿澶氬晢鍝?  if (loading_recommend.value) return; // 濡傛灉姝ｅ湪鍔犺浇涓紝鍒欎笉瑙﹀彂鏂扮殑璇锋眰
   const scrollHeight = document.documentElement.scrollHeight;
   const scrollTop = window.scrollY;
   const windowHeight = window.innerHeight;
 
-  // 判断是否到达底部
+  // 鍒ゆ柇鏄惁鍒拌揪搴曢儴
   if (scrollTop + windowHeight >= scrollHeight - 200) {
     if (recommendedProducts.value.length < total_recommend.value) {
       initRecommendedProducts();
@@ -825,8 +818,7 @@ const recommendedProducts = ref([]);
 const page_recommend = ref(1);
 const pageSize = ref(14);
 const total_recommend = ref(0);
-const loading_recommend = ref(false); // 用于控制加载状态
-async function getCount() {
+const loading_recommend = ref(false); // 鐢ㄤ簬鎺у埗鍔犺浇鐘舵€?async function getCount() {
   try {
     const response = await request.post('/api/good/getCount', {}, {
       headers: {
@@ -838,14 +830,13 @@ async function getCount() {
       total_recommend.value = response.data;
     }
   } catch (error) {
-    ElMessage.error('获取商品总数失败');
+    ElMessage.error('鑾峰彇鍟嗗搧鎬绘暟澶辫触');
   }
 }
 
 async function initRecommendedProducts() {
-  if (loading_recommend.value) return; // 防止重复加载
-  loading_recommend.value = true; // 设置加载状态为 true，表示正在加载
-
+  if (loading_recommend.value) return; // 闃叉閲嶅鍔犺浇
+  loading_recommend.value = true; // 璁剧疆鍔犺浇鐘舵€佷负 true锛岃〃绀烘鍦ㄥ姞杞?
   try {
     const response = await request.post('/api/good/getGoods', {
       userId: UserInfoForm.value.id,
@@ -869,10 +860,9 @@ async function initRecommendedProducts() {
       page_recommend.value++;
     }
   } catch (error) {
-    ElMessage.error('获取推荐商品失败');
+    ElMessage.error('鑾峰彇鎺ㄨ崘鍟嗗搧澶辫触');
   } finally {
-    loading_recommend.value = false; // 请求完成后重置加载状态
-  }
+    loading_recommend.value = false; // 璇锋眰瀹屾垚鍚庨噸缃姞杞界姸鎬?  }
 }
 
 const isLive = ref(false);
@@ -891,7 +881,7 @@ async function checkLive() {
       isLive.value = true;
     }
   } catch (error) {
-    ElMessage.error('获取直播状态失败')
+    ElMessage.error('鑾峰彇鐩存挱鐘舵€佸け璐?)
   }
 }
 
@@ -950,7 +940,7 @@ onBeforeUnmount(() => {
   height: 65vh;
 }
 
-/* 放大的图片，通过定位将左上角定位到(0,0) */
+/* 鏀惧ぇ鐨勫浘鐗囷紝閫氳繃瀹氫綅灏嗗乏涓婅瀹氫綅鍒?0,0) */
 .rightImg {
   display: inline-block;
   width: 800px;
@@ -961,7 +951,7 @@ onBeforeUnmount(() => {
   border-radius: 10px;
 }
 
-/* 右边的区域图片放大空间 */
+/* 鍙宠竟鐨勫尯鍩熷浘鐗囨斁澶х┖闂?*/
 .right {
   margin-left: 500px;
   width: 400px;
@@ -972,7 +962,7 @@ onBeforeUnmount(() => {
   border-radius: 0 10px 10px 0;
 }
 
-/* 一个最高层层罩 */
+/* 涓€涓渶楂樺眰灞傜僵 */
 .maskTop {
   width: 500px;
   height: 500px;
@@ -982,7 +972,7 @@ onBeforeUnmount(() => {
   left: 0;
 }
 
-/* 层罩，通过定位将左上角定位到(0,0) */
+/* 灞傜僵锛岄€氳繃瀹氫綅灏嗗乏涓婅瀹氫綅鍒?0,0) */
 .top {
   width: 200px;
   height: 200px;
@@ -993,7 +983,7 @@ onBeforeUnmount(() => {
   left: 0;
 }
 
-/* 原图的容器 */
+/* 鍘熷浘鐨勫鍣?*/
 .left {
   width: 500px;
   height: 500px;
@@ -1007,15 +997,15 @@ onBeforeUnmount(() => {
 }
 
 .address-list {
-  position: absolute; /* 使地址列表绝对定位 */
+  position: absolute; /* 浣垮湴鍧€鍒楄〃缁濆瀹氫綅 */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 15px;
-  z-index: 1000; /* 确保显示在其他元素之上 */
-  background-color: white; /* 背景色，以便于区分 */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
+  z-index: 1000; /* 纭繚鏄剧ず鍦ㄥ叾浠栧厓绱犱箣涓?*/
+  background-color: white; /* 鑳屾櫙鑹诧紝浠ヤ究浜庡尯鍒?*/
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* 娣诲姞闃村奖鏁堟灉 */
   padding: 10px;
-  border-radius: 8px; /* 圆角设计 */
+  border-radius: 8px; /* 鍦嗚璁捐 */
   max-height: 40vh;
 }
 
@@ -1077,11 +1067,11 @@ onBeforeUnmount(() => {
 }
 
 .good-star i {
-  font-size: 24px; /* 调整图标大小 */
+  font-size: 24px; /* 璋冩暣鍥炬爣澶у皬 */
 }
 
 .good-star span {
-  font-size: 14px; /* 调整文本大小 */
+  font-size: 14px; /* 璋冩暣鏂囨湰澶у皬 */
 }
 
 .el-anchor-link {
@@ -1158,8 +1148,8 @@ onBeforeUnmount(() => {
 
 .good-comment-images {
   display: flex;
-  flex-wrap: wrap; /* 如果图片过多，可以换行 */
-  gap: 10px; /* 根据需要调整图片之间的间距 */
+  flex-wrap: wrap; /* 濡傛灉鍥剧墖杩囧锛屽彲浠ユ崲琛?*/
+  gap: 10px; /* 鏍规嵁闇€瑕佽皟鏁村浘鐗囦箣闂寸殑闂磋窛 */
 }
 
 .el-tabs {
@@ -1267,7 +1257,7 @@ onBeforeUnmount(() => {
 
 .live-label {
   position: absolute;
-  bottom: -10px; /* 调整位置 */
+  bottom: -10px; /* 璋冩暣浣嶇疆 */
   left: 50%;
   transform: translateX(-50%);
   background-color: rgba(255, 0, 0, 0.8);
@@ -1301,9 +1291,9 @@ onBeforeUnmount(() => {
   right: 0;
   bottom: 0;
   border-radius: 50%;
-  border: 2px solid rgba(255, 0, 0, 0.5); /* 外圈颜色 */
-  animation: ripple 1.5s infinite; /* 动画周期 */
-  z-index: 1; /* 位于图片下面 */
+  border: 2px solid rgba(255, 0, 0, 0.5); /* 澶栧湀棰滆壊 */
+  animation: ripple 1.5s infinite; /* 鍔ㄧ敾鍛ㄦ湡 */
+  z-index: 1; /* 浣嶄簬鍥剧墖涓嬮潰 */
 }
 
 </style>
