@@ -1,7 +1,7 @@
-package com.shopping_c_backend.shoppping_c_backend.Mapper;
+package com.shopping_c_backend.Mapper;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.LiveMessageEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopEntity;
+import com.shopping_c_backend.module.live.LiveMessageEntity;
+import com.shopping_c_backend.module.shop.ShopEntity;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

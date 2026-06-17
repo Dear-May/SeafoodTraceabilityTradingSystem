@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Websocket;
+package com.shopping_c_backend.Websocket;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

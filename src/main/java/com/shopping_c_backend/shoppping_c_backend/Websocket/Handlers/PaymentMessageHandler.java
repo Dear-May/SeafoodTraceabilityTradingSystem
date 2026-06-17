@@ -1,6 +1,6 @@
-package com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers;
+package com.shopping_c_backend.Websocket.Handlers;
 
-import com.shopping_c_backend.shoppping_c_backend.Websocket.MessageHandler;
+import com.shopping_c_backend.websocket.core.MessageHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

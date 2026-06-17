@@ -1,8 +1,8 @@
-package com.shopping_c_backend.shoppping_c_backend.Util;
+package com.shopping_c_backend.Util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.shopping_c_backend.shoppping_c_backend.Constants.WeatherConstants;
+import com.shopping_c_backend.common.constant.WeatherConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

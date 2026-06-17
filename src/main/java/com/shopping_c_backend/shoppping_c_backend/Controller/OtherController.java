@@ -1,16 +1,16 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
-import com.shopping_c_backend.shoppping_c_backend.Util.NetworkUtil;
-import com.shopping_c_backend.shoppping_c_backend.Util.WeatherUtil;
+import com.shopping_c_backend.common.util.NetworkUtil;
+import com.shopping_c_backend.common.util.WeatherUtil;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/other")
 public class OtherController {
     @Resource
@@ -20,7 +20,6 @@ public class OtherController {
             .allowUrlProtocols("http", "https") // 允许的URL协议
             .toFactory();
 
-    @CrossOrigin
     @ResponseBody
     @RequestMapping(value = "/weather", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public Map<String, Object> getWeather(@RequestBody Map<String, String> requestMap) {
@@ -28,7 +27,6 @@ public class OtherController {
         return weatherUtil.getWeather(city);
     }
 
-    @CrossOrigin
     @ResponseBody
     @RequestMapping(value = "/getHostIp", method = RequestMethod.GET)
     public String getHostIp() {

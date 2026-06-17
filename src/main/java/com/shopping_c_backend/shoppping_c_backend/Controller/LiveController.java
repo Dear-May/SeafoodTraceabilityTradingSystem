@@ -1,8 +1,7 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
-import com.shopping_c_backend.shoppping_c_backend.Service.LiveServiceImpl;
-import com.shopping_c_backend.shoppping_c_backend.Vo.Result;
-import org.springframework.context.annotation.Lazy;
+import com.shopping_c_backend.module.live.LiveService;
+import com.shopping_c_backend.common.web.Result;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,14 +14,13 @@ import java.util.Map;
 @RestController
 @RequestMapping("/live")
 public class LiveController {
-    @Lazy
     @Resource
     private LiveServiceImpl liveService;
 
     @RequestMapping(value = "isLiveVisible", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     public Result isLiveVisible(@RequestBody Map<String, Object> params) {
         int roomId = Integer.parseInt(params.get("roomId").toString());
-        return liveService.isLiveVisible(roomId) ? new Result(200) : new Result(404);
+        return liveService.isLiveVisible(roomId) ? Result.success() : new Result(404);
     }
 
     @RequestMapping(value = "/updateLiveStatus", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

@@ -1,10 +1,10 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.GoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.SpecificationEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.GoodMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.ShopMapper;
+import com.shopping_c_backend.module.goods.GoodEntity;
+import com.shopping_c_backend.module.shop.ShopEntity;
+import com.shopping_c_backend.module.goods.SpecificationEntity;
+import com.shopping_c_backend.module.goods.GoodMapper;
+import com.shopping_c_backend.module.shop.ShopMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,9 +16,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
 
 @Service
-public class GoodServiceImpl {
+public class GoodServiceImpl implements GoodService {
+
+    private static final PolicyFactory SANITIZER_POLICY = new HtmlPolicyBuilder()
+            .allowElements("b", "i", "em", "strong", "a")
+            .allowUrlProtocols("http", "https")
+            .toFactory();
+
     @Resource
     private GoodMapper goodMapper;
     @Resource
@@ -117,6 +125,15 @@ public class GoodServiceImpl {
             operations.set(key, specificationEntities, 5, TimeUnit.HOURS);
             return specificationEntities;
         }
+    }
+
+
+    @Override
+    public String sanitize(String input) {
+        if (input == null) {
+            return "";
+        }
+        return SANITIZER_POLICY.sanitize(input);
     }
 
     public GoodEntity getGoodById(String id) {

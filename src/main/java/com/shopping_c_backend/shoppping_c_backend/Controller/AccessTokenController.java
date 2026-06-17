@@ -1,17 +1,26 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
-import com.shopping_c_backend.shoppping_c_backend.Component.GitHubProvider;
-import com.shopping_c_backend.shoppping_c_backend.Component.GiteeProvider;
-import com.shopping_c_backend.shoppping_c_backend.Component.GoogleProvider;
-import com.shopping_c_backend.shoppping_c_backend.Constants.GitHubConstants;
-import com.shopping_c_backend.shoppping_c_backend.Constants.GiteeConstants;
-import com.shopping_c_backend.shoppping_c_backend.Constants.GoogleConstants;
-import com.shopping_c_backend.shoppping_c_backend.Entity.*;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.UserMapper;
-import com.shopping_c_backend.shoppping_c_backend.Service.UserServiceImpl;
+import com.shopping_c_backend.thirdparty.auth.provider.GitHubProvider;
+import com.shopping_c_backend.thirdparty.auth.provider.GiteeProvider;
+import com.shopping_c_backend.thirdparty.auth.provider.GoogleProvider;
+import com.shopping_c_backend.common.constant.GitHubConstants;
+import com.shopping_c_backend.common.constant.GiteeConstants;
+import com.shopping_c_backend.common.constant.GoogleConstants;
+import com.shopping_c_backend.module.user.*;
+import com.shopping_c_backend.module.goods.*;
+import com.shopping_c_backend.module.order.*;
+import com.shopping_c_backend.module.shop.*;
+import com.shopping_c_backend.module.cart.*;
+import com.shopping_c_backend.module.favorite.*;
+import com.shopping_c_backend.module.footprint.*;
+import com.shopping_c_backend.module.chat.*;
+import com.shopping_c_backend.module.admin.*;
+import com.shopping_c_backend.module.live.*;
+import com.shopping_c_backend.module.trace.*;
+import com.shopping_c_backend.module.user.UserMapper;
+import com.shopping_c_backend.module.user.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Controller
+@RestController
 @RequestMapping("/callback")
 public class AccessTokenController {
     private final GiteeConstants giteeConstants;
@@ -35,7 +44,6 @@ public class AccessTokenController {
     @Resource
     private UserMapper userMapper;
     @Resource
-    @Lazy
     private UserServiceImpl userService;
     String uuid = UUID.randomUUID().toString().replaceAll("-", "");
 
@@ -178,7 +186,6 @@ public class AccessTokenController {
         return null;
     }
 
-    @CrossOrigin
     @ResponseBody
     @RequestMapping(value = "/ThirdLogin/getUserBaseInfo", method = RequestMethod.POST, headers = "Accept=application/json")
     public Map<String, String> userBaseInfo(@RequestBody Map<String, String> requestMap) {

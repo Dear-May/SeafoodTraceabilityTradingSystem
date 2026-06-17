@@ -1,6 +1,6 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Vo.EsGoodVo;
+import com.shopping_c_backend.module.search.EsGoodVo;
 
 import java.io.IOException;
 import java.util.List;

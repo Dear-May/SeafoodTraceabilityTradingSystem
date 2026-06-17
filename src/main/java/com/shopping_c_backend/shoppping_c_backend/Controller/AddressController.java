@@ -1,9 +1,9 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.AddressEntity;
-import com.shopping_c_backend.shoppping_c_backend.Service.AddressImpl;
-import com.shopping_c_backend.shoppping_c_backend.Util.AddressUtil;
-import com.shopping_c_backend.shoppping_c_backend.Vo.Result;
+import com.shopping_c_backend.module.address.AddressEntity;
+import com.shopping_c_backend.module.address.AddressImpl;
+import com.shopping_c_backend.common.util.AddressUtil;
+import com.shopping_c_backend.common.web.Result;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +21,6 @@ public class AddressController {
             .allowUrlProtocols("http", "https") // 允许的URL协议
             .toFactory();
 
-    @CrossOrigin
     @RequestMapping(value = "/getAllAddresses", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public List<AddressEntity> getAllAddresses(@RequestBody Map<String, Object> requestMap) {
         int userId = Integer.parseInt(policy.sanitize(requestMap.get("userId").toString()));
@@ -39,7 +38,6 @@ public class AddressController {
         return addressService.getAddressInfo(provinceId, cityId, areaId, streetId);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/addAddress", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public Result addAddress(@RequestBody Map<String, Object> requestMap) {
         int userId = Integer.parseInt(policy.sanitize(requestMap.get("userId").toString()));
@@ -51,10 +49,9 @@ public class AddressController {
         boolean defaultAddress = policy.sanitize(requestMap.get("is_default").toString()).equals("true");
         String status = defaultAddress ? "default" : "";
         AddressEntity addressEntity = new AddressEntity(userId, consignee, phone, "china", area, detailAddress, status);
-        return addressService.addAddress(addressEntity) == 1 ? new Result(200) : new Result(400);
+        return addressService.addAddress(addressEntity) == 1 ? Result.success() : new Result(400);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "addressToId", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public Map<String, Object> addressToId(@RequestBody Map<String, Object> requestMap) {
         String address = policy.sanitize(requestMap.get("address").toString());
@@ -91,7 +88,6 @@ public class AddressController {
         return result;
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/updateAddress", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public Result updateAddress(@RequestBody Map<String, Object> requestMap) {
         int addressId = Integer.parseInt(policy.sanitize(requestMap.get("addressId").toString()));
@@ -104,22 +100,20 @@ public class AddressController {
         boolean defaultAddress = policy.sanitize(requestMap.get("is_default").toString()).equals("true");
         String status = defaultAddress ? "default" : "";
         AddressEntity addressEntity = new AddressEntity(addressId, userId, consignee, phone, area, detailAddress, status);
-        return addressService.updateAddress(addressEntity) == 1 ? new Result(200) : new Result(400);
+        return addressService.updateAddress(addressEntity) == 1 ? Result.success() : new Result(400);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/updateDefault", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public Result updateDefaultAddress(@RequestBody Map<String, Object> requestMap) {
         int userId = Integer.parseInt(policy.sanitize(requestMap.get("userId").toString()));
         int addressId = Integer.parseInt(policy.sanitize(requestMap.get("addressId").toString()));
-        return addressService.updateDefaultAddress(addressId, userId) == 1 ? new Result(200) : new Result(400);
+        return addressService.updateDefaultAddress(addressId, userId) == 1 ? Result.success() : new Result(400);
     }
 
-    @CrossOrigin
     @RequestMapping(value = "/deleteAddress", method = RequestMethod.POST, headers = "Content-Type=application/json")
     public Result deleteAddress(@RequestBody Map<String, Object> requestMap) {
         int userId = Integer.parseInt(policy.sanitize(requestMap.get("userId").toString()));
         int addressId = Integer.parseInt(policy.sanitize(requestMap.get("addressId").toString()));
-        return addressService.deleteAddress(addressId, userId) == 1 ? new Result(200) : new Result(400);
+        return addressService.deleteAddress(addressId, userId) == 1 ? Result.success() : new Result(400);
     }
 }

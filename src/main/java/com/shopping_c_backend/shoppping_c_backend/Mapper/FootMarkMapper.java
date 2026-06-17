@@ -1,6 +1,6 @@
-package com.shopping_c_backend.shoppping_c_backend.Mapper;
+package com.shopping_c_backend.Mapper;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.FootMarkEntity;
+import com.shopping_c_backend.module.footprint.FootMarkEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

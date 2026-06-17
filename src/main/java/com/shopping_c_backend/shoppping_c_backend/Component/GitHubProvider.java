@@ -1,9 +1,9 @@
-package com.shopping_c_backend.shoppping_c_backend.Component;
+package com.shopping_c_backend.Component;
 
 import com.alibaba.fastjson.JSON;
-import com.shopping_c_backend.shoppping_c_backend.Constants.GitHubConstants;
-import com.shopping_c_backend.shoppping_c_backend.Entity.GitHubUserEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ProviderToken;
+import com.shopping_c_backend.common.constant.GitHubConstants;
+import com.shopping_c_backend.module.user.GitHubUserEntity;
+import com.shopping_c_backend.module.user.ProviderToken;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

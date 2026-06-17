@@ -1,8 +1,8 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.GoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.GoodMapper;
-import com.shopping_c_backend.shoppping_c_backend.Vo.SearchResponse;
+import com.shopping_c_backend.module.goods.GoodEntity;
+import com.shopping_c_backend.module.goods.GoodMapper;
+import com.shopping_c_backend.module.search.SearchResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class ImageSearchServiceImpl {
+public class ImageSearchServiceImpl implements ImageSearchService {
     @Value("${image.search.api.base-url}")
     private String apiBaseUrl;
 

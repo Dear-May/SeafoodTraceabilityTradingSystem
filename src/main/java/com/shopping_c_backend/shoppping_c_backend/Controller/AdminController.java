@@ -1,11 +1,9 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
-import com.shopping_c_backend.shoppping_c_backend.Service.AdminServiceImpl;
-import com.shopping_c_backend.shoppping_c_backend.Service.EsServiceImpl;
-import com.shopping_c_backend.shoppping_c_backend.Vo.Result;
-import org.owasp.html.HtmlPolicyBuilder;
-import org.owasp.html.PolicyFactory;
-import org.springframework.context.annotation.Lazy;
+import com.shopping_c_backend.module.admin.AdminService;
+import com.shopping_c_backend.module.search.EsService;
+import com.shopping_c_backend.common.web.Result;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,15 +18,10 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
     @Resource
-    @Lazy
     private AdminServiceImpl adminService;
     @Resource
-    @Lazy
     private EsServiceImpl esService;
-    PolicyFactory policy = new HtmlPolicyBuilder()
-            .allowElements("b", "i", "em", "strong", "a") // 允许的HTML元素
-            .allowUrlProtocols("http", "https") // 允许的URL协议
-            .toFactory();
+    // Sanitization handled via service layer
 
     @RequestMapping(value = "/checkUserPermission", method = RequestMethod.POST, produces = "application/json")
     public Result checkUserPermission(@RequestBody Map<String, String> map) {
@@ -53,7 +46,7 @@ public class AdminController {
         String token = policy.sanitize(requestMap.get("token") == null ? "" : requestMap.get("token").toString());
         Result result = adminService.checkUserPermission(token);
         if (result.getCode() == 200) {
-            return esService.syncData() != 0 ? new Result(200) : new Result(400);
+            return esService.syncData() != 0 ? Result.success() : new Result(400);
         } else
             return new Result(400);
     }

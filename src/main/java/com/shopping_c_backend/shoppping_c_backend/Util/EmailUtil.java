@@ -1,6 +1,6 @@
-package com.shopping_c_backend.shoppping_c_backend.Util;
+package com.shopping_c_backend.Util;
 
-import com.shopping_c_backend.shoppping_c_backend.Constants.EmailConstants;
+import com.shopping_c_backend.common.constant.EmailConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

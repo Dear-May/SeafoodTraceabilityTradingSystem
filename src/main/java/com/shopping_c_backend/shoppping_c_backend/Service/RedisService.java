@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
 public interface RedisService {
 

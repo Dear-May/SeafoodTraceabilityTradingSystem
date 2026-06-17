@@ -1,8 +1,8 @@
-package com.shopping_c_backend.shoppping_c_backend.Component;
+package com.shopping_c_backend.Component;
 
 import com.alibaba.fastjson.JSON;
-import com.shopping_c_backend.shoppping_c_backend.Constants.WechatConstants;
-import com.shopping_c_backend.shoppping_c_backend.Entity.WechatUserEntity;
+import com.shopping_c_backend.common.constant.WechatConstants;
+import com.shopping_c_backend.module.user.WechatUserEntity;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,9 +1,9 @@
-package com.shopping_c_backend.shoppping_c_backend.Mapper;
+package com.shopping_c_backend.Mapper;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.Trace.TraceEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.Trace.TraceGoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.Trace.TraceInformationEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.Trace.TraceUserEntity;
+import com.shopping_c_backend.module.trace.TraceEntity;
+import com.shopping_c_backend.module.trace.TraceGoodEntity;
+import com.shopping_c_backend.module.trace.TraceInformationEntity;
+import com.shopping_c_backend.module.trace.TraceUserEntity;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

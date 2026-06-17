@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Handler;
+package com.shopping_c_backend.Handler;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.ibatis.type.BaseTypeHandler;

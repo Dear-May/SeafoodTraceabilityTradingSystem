@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Entity;
+package com.shopping_c_backend.Entity;
 
 import lombok.Data;
 
