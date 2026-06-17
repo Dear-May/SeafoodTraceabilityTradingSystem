@@ -1,9 +1,9 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.FavoriteEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.GoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.FavoriteMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.UserMapper;
+import com.shopping_c_backend.module.favorite.FavoriteEntity;
+import com.shopping_c_backend.module.goods.GoodEntity;
+import com.shopping_c_backend.module.favorite.FavoriteMapper;
+import com.shopping_c_backend.module.user.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,13 +16,13 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class FavoriteServiceImpl {
+public class FavoriteServiceImpl implements FavoriteService {
     @Resource
     private FavoriteMapper favoriteMapper;
     @Resource
     private UserMapper userMapper;
     @Resource
-    private GoodServiceImpl goodService;
+    private GoodService goodService;
     @Resource
     private RedisTemplate redisTemplate;
     private static final Logger logger = LoggerFactory.getLogger(FavoriteServiceImpl.class);

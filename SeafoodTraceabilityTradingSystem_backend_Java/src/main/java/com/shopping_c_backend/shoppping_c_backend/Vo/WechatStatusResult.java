@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Vo;
+package com.shopping_c_backend.Vo;
 
 import lombok.Data;
 

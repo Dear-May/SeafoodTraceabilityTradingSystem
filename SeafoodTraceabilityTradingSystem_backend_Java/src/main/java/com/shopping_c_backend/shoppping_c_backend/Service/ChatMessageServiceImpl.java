@@ -1,14 +1,14 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ChatMessageEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ChatSessionEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.ChatMessageMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.ShopMapper;
-import com.shopping_c_backend.shoppping_c_backend.Util.DateUtil;
-import com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers.ChatMessageHandler;
-import com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers.NotificationMessageHandler;
+import com.shopping_c_backend.module.chat.ChatMessageEntity;
+import com.shopping_c_backend.module.chat.ChatSessionEntity;
+import com.shopping_c_backend.module.shop.ShopEntity;
+import com.shopping_c_backend.module.chat.ChatMessageMapper;
+import com.shopping_c_backend.module.shop.ShopMapper;
+import com.shopping_c_backend.common.util.DateUtil;
+import com.shopping_c_backend.websocket.handler.ChatMessageHandler;
+import com.shopping_c_backend.websocket.handler.NotificationMessageHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 import java.util.*;
 
 @Service
-public class ChatMessageServiceImpl {
+public class ChatMessageServiceImpl implements ChatMessageService {
     @Resource
     private ChatMessageMapper chatMessageMapper;
     @Resource

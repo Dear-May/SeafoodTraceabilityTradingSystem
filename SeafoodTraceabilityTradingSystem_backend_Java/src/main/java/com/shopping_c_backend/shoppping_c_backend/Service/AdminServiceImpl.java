@@ -1,13 +1,13 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.AdminTokenEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ReviewLicenseEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopUserEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.AdminMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.ShopMapper;
-import com.shopping_c_backend.shoppping_c_backend.Util.EmailUtil;
-import com.shopping_c_backend.shoppping_c_backend.Vo.Result;
+import com.shopping_c_backend.module.admin.AdminTokenEntity;
+import com.shopping_c_backend.module.shop.ReviewLicenseEntity;
+import com.shopping_c_backend.module.shop.ShopEntity;
+import com.shopping_c_backend.module.shop.ShopUserEntity;
+import com.shopping_c_backend.module.admin.AdminMapper;
+import com.shopping_c_backend.module.shop.ShopMapper;
+import com.shopping_c_backend.common.util.EmailUtil;
+import com.shopping_c_backend.common.web.Result;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class AdminServiceImpl {
+public class AdminServiceImpl implements AdminService {
     @Resource
     private AdminMapper adminMapper;
     @Resource

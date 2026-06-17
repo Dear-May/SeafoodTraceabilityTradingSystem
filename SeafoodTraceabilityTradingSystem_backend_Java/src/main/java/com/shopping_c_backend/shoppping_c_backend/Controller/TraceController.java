@@ -1,14 +1,13 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
 import com.alibaba.fastjson.JSONArray;
-import com.shopping_c_backend.shoppping_c_backend.Service.TraceServiceImpl;
-import com.shopping_c_backend.shoppping_c_backend.Util.AliOSSUtil;
-import com.shopping_c_backend.shoppping_c_backend.Vo.Result;
+import com.shopping_c_backend.module.trace.TraceService;
+import com.shopping_c_backend.common.util.AliOSSUtil;
+import com.shopping_c_backend.common.web.Result;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,7 +21,6 @@ import java.util.Map;
 @RequestMapping("/trace")
 public class TraceController {
     @Resource
-    @Lazy
     private TraceServiceImpl traceService;
     private static final Logger logger = LoggerFactory.getLogger(TraceController.class);
 
@@ -51,7 +49,7 @@ public class TraceController {
         int userID = (Integer) requestmap.get("userID");
         int shopID = (Integer) requestmap.get("shopID");
         List<String> traceID = traceService.createTrace(goodIDs, info, userID, shopID);
-        result.put("result", traceID != null ? new Result(200) : new Result(400));
+        result.put("result", traceID != null ? Result.success() : new Result(400));
         if (traceID != null)
             result.put("traceID", traceID);
         return result;
@@ -65,7 +63,7 @@ public class TraceController {
         int userID = (Integer) requestmap.get("userID");
         int shopID = (Integer) requestmap.get("shopID");
         String InfoID = traceService.addTrace(traceID, info, userID, shopID);
-        result.put("result", InfoID != null ? new Result(200) : new Result(400));
+        result.put("result", InfoID != null ? Result.success() : new Result(400));
         if (InfoID != null)
             result.put("InfoID", InfoID);
         return result;
@@ -88,7 +86,7 @@ public class TraceController {
                     index++;
                 }
             }
-            return traceService.updateTraceImg(traceInfoID, jsonArray.toJSONString()) != 0 ? new Result(200) : new Result(400);
+            return traceService.updateTraceImg(traceInfoID, jsonArray.toJSONString()) != 0 ? Result.success() : new Result(400);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new Result(500);

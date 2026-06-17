@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -8,11 +8,21 @@ import com.google.zxing.WriterException;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-import com.shopping_c_backend.shoppping_c_backend.Entity.*;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.*;
-import com.shopping_c_backend.shoppping_c_backend.Util.NetworkUtil;
-import com.shopping_c_backend.shoppping_c_backend.Util.TokenUtil;
-import com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers.NotificationMessageHandler;
+import com.shopping_c_backend.module.user.*;
+import com.shopping_c_backend.module.goods.*;
+import com.shopping_c_backend.module.order.*;
+import com.shopping_c_backend.module.shop.*;
+import com.shopping_c_backend.module.cart.*;
+import com.shopping_c_backend.module.favorite.*;
+import com.shopping_c_backend.module.footprint.*;
+import com.shopping_c_backend.module.chat.*;
+import com.shopping_c_backend.module.admin.*;
+import com.shopping_c_backend.module.live.*;
+import com.shopping_c_backend.module.trace.*;
+import com.shopping_c_backend.Mapper.*;
+import com.shopping_c_backend.common.util.NetworkUtil;
+import com.shopping_c_backend.common.util.TokenUtil;
+import com.shopping_c_backend.websocket.handler.NotificationMessageHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -30,7 +40,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class OrderServiceImpl {
+public class OrderServiceImpl implements OrderService {
     @Resource
     private AddressMapper addressMapper;
     @Resource
@@ -43,10 +53,10 @@ public class OrderServiceImpl {
     private UserMapper userMapper;
     @Resource
     @Lazy
-    private BucketServiceImpl bucketService;
+    private BucketService bucketService;
     @Resource
     @Lazy
-    private ShopServiceImpl shopService;
+    private ShopService shopService;
     @Resource
     private RedisTemplate redisTemplate;
     private static final Logger logger = LoggerFactory.getLogger(OrderServiceImpl.class);

@@ -22,10 +22,10 @@ spring:
           portal:orderId:
     expire:
       authCode: 60 # 验证码过期时间（秒）
-    host: 127.0.0.1 # Redis服务器地址
+    host: ${REDIS_HOST:127.0.0.1} # Redis服务器地址
     database: 1 # Redis数据库索引（默认为0）
-    port: 6379  # Redis服务器连接端口
-    password: "****"  # Redis服务器连接密码（默认为空）
+    port: ${REDIS_PORT:6379}  # Redis服务器连接端口
+    password: "${REDIS_PASSWORD:****}"  # Redis服务器连接密码（默认为空）
     # 连接池最大连接数（使用负值表示没有限制）
     jedis:
       pool:
@@ -35,14 +35,14 @@ spring:
         min-idle: 0  # 连接池中的最小空闲连接
     timeout: 3000ms  # 连接超时时间（毫秒）
   datasource:
-    url: jdbc:mysql://localhost:3306/oceanwave?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
-    username: "****"
-    password: "****"
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/oceanwave?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC}
+    username: "${DB_USERNAME:****}"
+    password: "${DB_PASSWORD:****}"
     driver-class-name: com.mysql.cj.jdbc.Driver
   elasticsearch:
-    uris: http://localhost:9200
-    username: "****"
-    password: "****"
+    uris: ${ES_URIS:http://localhost:9200}
+    username: "${DB_USERNAME:****}"
+    password: "${DB_PASSWORD:****}"
   data:
     elasticsearch:
       repositories:
@@ -75,8 +75,8 @@ spring:
 mybatis:
   mapper-locations: classpath:mappers/*xml
   # 指定 Mybatis 的实体类包
-  type-aliases-package: com.shopping_c_backend.shoppping_c_backend.Entity
-  type-handlers-package: com.shopping_c_backend.shoppping_c_backend.Handler
+  type-aliases-package: com.shopping_c_backend.module
+  type-handlers-package: com.shopping_c_backend.common.util
 
 # 应用服务 WEB 访问端口
 server:
@@ -88,16 +88,16 @@ server:
 
 # 阿里云AccessKey
 aliyun:
-  accessKey: "****"
-  accessKeySecret: "****"
+  accessKey: "${ALIYUN_ACCESS_KEY:****}"
+  accessKeySecret: "${ALIYUN_ACCESS_SECRET:****}"
   oss:
     endpoint: oss-cn-beijing.aliyuncs.com
     bucketName: oceanwave
 
 # Gitee登录配置
 gitee:
-  appID: "****"
-  appKEY: "****"
+  appID: "${GITEE_APP_ID:****}"
+  appKEY: "${GITEE_APP_KEY:****}"
   redirectURI: http://127.0.0.1:8888/callback/gitee
   authorizeURL: https://gitee.com/oauth/authorize
   accessToken: https://gitee.com/oauth/token
@@ -105,8 +105,8 @@ gitee:
 
 # GitHub登录配置
 github:
-  appID: "****"
-  appKEY: "****"
+  appID: "${GITHUB_APP_ID:****}"
+  appKEY: "${GITHUB_APP_KEY:****}"
   redirectURI: http://127.0.0.1:8888/callback/github
   authorizeURL: https://github.com/login/oauth/authorize
   accessToken: https://github.com/login/oauth/access_token
@@ -114,8 +114,8 @@ github:
 
 # Google登录配置
 google:
-  appID: "****"
-  appKEY: "****"
+  appID: "${GOOGLE_APP_ID:****}"
+  appKEY: "${GOOGLE_APP_KEY:****}"
   redirectURI: http://127.0.0.1:8888/callback/google
   authorizeURL: https://accounts.google.com/o/oauth2/v2/auth
   accessToken: https://oauth2.googleapis.com/token
@@ -123,20 +123,20 @@ google:
 
 # 微信登录配置
 wechat:
-  appID: "****"
-  appKEY: "****"
+  appID: "${WECHAT_APP_ID:****}"
+  appKEY: "${WECHAT_APP_KEY:****}"
   accessToken: https://api.weixin.qq.com/cgi-bin/token
   userInfo: https://api.weixin.qq.com/sns/userinfo
 
 # 天气配置
 weather:
-  appID: "****"
-  appKEY: "****"
+  appID: "${WEATHER_APP_ID:****}"
+  appKEY: "${WEATHER_APP_KEY:****}"
 
 # 百度OCR配置
 baidu:
-  AppID: "****"
-  APIKey: "****"
+  AppID: "${BAIDU_APP_ID:****}"
+  APIKey: "${BAIDU_API_KEY:****}"
 
 image:
   search:

@@ -1,7 +1,7 @@
-package com.shopping_c_backend.shoppping_c_backend.Mapper;
+package com.shopping_c_backend.Mapper;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.GoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.SpecificationEntity;
+import com.shopping_c_backend.module.goods.GoodEntity;
+import com.shopping_c_backend.module.goods.SpecificationEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

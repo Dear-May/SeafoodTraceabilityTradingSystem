@@ -1,7 +1,7 @@
-package com.shopping_c_backend.shoppping_c_backend.Mapper;
+package com.shopping_c_backend.Mapper;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.AdminTokenEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ReviewLicenseEntity;
+import com.shopping_c_backend.module.admin.AdminTokenEntity;
+import com.shopping_c_backend.module.shop.ReviewLicenseEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;

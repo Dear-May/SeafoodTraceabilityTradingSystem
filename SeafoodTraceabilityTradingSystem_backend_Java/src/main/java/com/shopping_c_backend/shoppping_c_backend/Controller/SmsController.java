@@ -1,16 +1,15 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
 import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.utils.StringUtils;
-import com.shopping_c_backend.shoppping_c_backend.Service.RedisService;
-import com.shopping_c_backend.shoppping_c_backend.Service.UserServiceImpl;
-import com.shopping_c_backend.shoppping_c_backend.Util.SmsCodeGenerateUtil;
-import com.shopping_c_backend.shoppping_c_backend.Util.SmsUtil;
+import com.shopping_c_backend.common.cache.RedisService;
+import com.shopping_c_backend.module.user.UserServiceImpl;
+import com.shopping_c_backend.common.util.SmsCodeGenerateUtil;
+import com.shopping_c_backend.common.util.SmsUtil;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/sms")
 public class SmsController {
 
@@ -34,7 +33,6 @@ public class SmsController {
     private String tokenId = "TOKEN-USER-";
 
     @Resource
-    @Lazy
     private UserServiceImpl userService;
     PolicyFactory policy = new HtmlPolicyBuilder()
             .allowElements("b", "i", "em", "strong", "a") // 允许的HTML元素

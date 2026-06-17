@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Util;
+package com.shopping_c_backend.Util;
 
 import java.security.SecureRandom;
 import java.util.Random;

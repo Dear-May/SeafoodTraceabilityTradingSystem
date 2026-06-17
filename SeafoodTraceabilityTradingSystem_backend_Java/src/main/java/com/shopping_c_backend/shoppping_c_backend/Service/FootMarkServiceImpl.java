@@ -1,9 +1,9 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.FootMarkEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.GoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.FootMarkMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.UserMapper;
+import com.shopping_c_backend.module.footprint.FootMarkEntity;
+import com.shopping_c_backend.module.goods.GoodEntity;
+import com.shopping_c_backend.module.footprint.FootMarkMapper;
+import com.shopping_c_backend.module.user.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -16,13 +16,13 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class FootMarkServiceImpl {
+public class FootMarkServiceImpl implements FootMarkService {
     @Resource
     private FootMarkMapper footMarkMapper;
     @Resource
     private UserMapper userMapper;
     @Resource
-    private GoodServiceImpl goodService;
+    private GoodService goodService;
     @Resource
     private RedisTemplate redisTemplate;
     private static final Logger logger = LoggerFactory.getLogger(FootMarkServiceImpl.class);

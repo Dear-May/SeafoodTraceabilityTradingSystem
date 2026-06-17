@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Entity.Trace;
+package com.shopping_c_backend.Entity.Trace;
 
 import lombok.Data;
 

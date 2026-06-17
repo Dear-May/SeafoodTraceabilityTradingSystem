@@ -1,13 +1,23 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
-import com.shopping_c_backend.shoppping_c_backend.Constants.BaiduOCRConstants;
-import com.shopping_c_backend.shoppping_c_backend.Entity.*;
-import com.shopping_c_backend.shoppping_c_backend.Service.ShopServiceImpl;
-import com.shopping_c_backend.shoppping_c_backend.Service.ShopUserServiceImpl;
-import com.shopping_c_backend.shoppping_c_backend.Util.AliOSSUtil;
-import com.shopping_c_backend.shoppping_c_backend.Util.ByteArrayMultipartFileUtil;
-import com.shopping_c_backend.shoppping_c_backend.Util.DateUtil;
-import com.shopping_c_backend.shoppping_c_backend.Vo.Result;
+import com.shopping_c_backend.common.constant.BaiduOCRConstants;
+import com.shopping_c_backend.module.user.*;
+import com.shopping_c_backend.module.goods.*;
+import com.shopping_c_backend.module.order.*;
+import com.shopping_c_backend.module.shop.*;
+import com.shopping_c_backend.module.cart.*;
+import com.shopping_c_backend.module.favorite.*;
+import com.shopping_c_backend.module.footprint.*;
+import com.shopping_c_backend.module.chat.*;
+import com.shopping_c_backend.module.admin.*;
+import com.shopping_c_backend.module.live.*;
+import com.shopping_c_backend.module.trace.*;
+import com.shopping_c_backend.module.shop.ShopService;
+import com.shopping_c_backend.module.shop.ShopUserServiceImpl;
+import com.shopping_c_backend.common.util.AliOSSUtil;
+import com.shopping_c_backend.common.util.ByteArrayMultipartFileUtil;
+import com.shopping_c_backend.common.util.DateUtil;
+import com.shopping_c_backend.common.web.Result;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -18,7 +28,6 @@ import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,10 +42,8 @@ import java.util.*;
 @RequestMapping("/shop")
 public class ShopController {
     @Resource
-    @Lazy
     private ShopServiceImpl shopService;
     @Resource
-    @Lazy
     private ShopUserServiceImpl shopUserService;
     @Resource
     private BaiduOCRConstants baiduOCRConstants;
@@ -59,21 +66,21 @@ public class ShopController {
         int userId = Integer.parseInt(requestMap.get("userId").toString());
         int shopId = Integer.parseInt(requestMap.get("shopId").toString());
         System.out.println(shopService.findFollowShop(shopId, userId));
-        return shopService.findFollowShop(shopId, userId) ? new Result(200) : new Result(400);
+        return shopService.findFollowShop(shopId, userId) ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/followShop", method = RequestMethod.POST, produces = "application/json")
     public Result followShop(@RequestBody Map<String, Object> requestMap) {
         int shopId = Integer.parseInt(requestMap.get("shopId").toString());
         int userId = Integer.parseInt(requestMap.get("userId").toString());
-        return shopService.followShop(shopId, userId) == 1 ? new Result(200) : new Result(400);
+        return shopService.followShop(shopId, userId) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/unfollowShop", method = RequestMethod.POST, produces = "application/json")
     public Result unfollowShop(@RequestBody Map<String, Object> requestMap) {
         int shopId = Integer.parseInt(requestMap.get("shopId").toString());
         int userId = Integer.parseInt(requestMap.get("userId").toString());
-        return shopService.unfollowShop(shopId, userId) == 1 ? new Result(200) : new Result(400);
+        return shopService.unfollowShop(shopId, userId) == 1 ? Result.success() : new Result(400);
     }
 
     // 登录，注册部分
@@ -86,7 +93,7 @@ public class ShopController {
                 return new Result(403);
             else {
                 ShopUserEntity shopUserEntity = shopUserService.login(phone);
-                return shopUserEntity != null ? new Result(200) : new Result(400);
+                return shopUserEntity != null ? Result.success() : new Result(400);
             }
         }
         return new Result(400);
@@ -102,7 +109,7 @@ public class ShopController {
     public Result isAccessShop(@RequestBody Map<String, Object> requestMap) {
         int shopId = Integer.parseInt(requestMap.get("shopId").toString());
         if (shopService.isAccessShop(shopId))
-            return new Result(200);
+            return Result.success();
         else
             return new Result(404);
     }
@@ -222,7 +229,7 @@ public class ShopController {
         reviewLicenseEntity.setStartingdateofvalidityperiod(StartingDateOfValidityPeriod);
         reviewLicenseEntity.setDateofapproval(DateOfApproval);
         reviewLicenseEntity.setTaxregistrationnumber(TaxRegistrationNumber);
-        return shopService.addReviewLincese(reviewLicenseEntity) == 1 ? new Result(200) : new Result(400);
+        return shopService.addReviewLincese(reviewLicenseEntity) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/submitLicense", method = RequestMethod.POST, produces = "application/json")
@@ -241,7 +248,7 @@ public class ShopController {
             ShopEntity shopEntity = shopService.findById(shopId);
             shopEntity.setStatus("审核中");
             shopService.updateShopInfo(shopEntity);
-            return shopService.updateReviewLicense(reviewLicenseEntity) == 1 ? new Result(200) : new Result(400);
+            return shopService.updateReviewLicense(reviewLicenseEntity) == 1 ? Result.success() : new Result(400);
         }
         return new Result(400);
     }
@@ -334,7 +341,7 @@ public class ShopController {
         } else
             return new Result(400);
         goodEntity.setPrice(minprice);
-        return shopService.insertGoodInfo(goodEntity, specificationEntities, multipartFile, files) == 1 ? new Result(200) : new Result(400);
+        return shopService.insertGoodInfo(goodEntity, specificationEntities, multipartFile, files) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/updateGoodInfo", method = RequestMethod.POST, produces = "application/json")
@@ -359,7 +366,7 @@ public class ShopController {
         if (updateStatus != null) {
             goodEntity.setStatus(updateStatus.equals("true"));
         }
-        return shopService.updateGoodInfo(goodEntity, type) >= 1 ? new Result(200) : new Result(400);
+        return shopService.updateGoodInfo(goodEntity, type) >= 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/updateSpecInfo", method = RequestMethod.POST, produces = "application/json")
@@ -386,7 +393,7 @@ public class ShopController {
             specificationEntity.setStatus(updateStatus.equals("true"));
         }
         specificationEntity.setUpdateTime(new Date());
-        return shopService.updateSpecificationInfo(specificationEntity, type) >= 1 ? new Result(200) : new Result(400);
+        return shopService.updateSpecificationInfo(specificationEntity, type) >= 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "updateGoodImage", method = RequestMethod.POST, produces = "application/json")
@@ -397,7 +404,7 @@ public class ShopController {
         AliOSSUtil aliOSSUtil = new AliOSSUtil();
         String path = "GoodFirstShow";
         String result = aliOSSUtil.upload(file, path, goodID);
-        return result != null ? new Result(200) : new Result(400);
+        return result != null ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "updateSpecImage", method = RequestMethod.POST, produces = "application/json")
@@ -408,7 +415,7 @@ public class ShopController {
         AliOSSUtil aliOSSUtil = new AliOSSUtil();
         String path = "GoodFirstShow";
         String result = aliOSSUtil.upload(file, path, specID);
-        return result != null ? new Result(200) : new Result(400);
+        return result != null ? Result.success() : new Result(400);
     }
 
     // 订单管理
@@ -435,7 +442,7 @@ public class ShopController {
         int workUserID = Integer.parseInt(requestMap.get("workUserID").toString());
         String orderId = policy.sanitize(requestMap.get("orderId").toString());
         String status = policy.sanitize(requestMap.get("status").toString());
-        return shopService.changeReturnStatus(orderId, status, workUserID) == 1 ? new Result(200) : new Result(400);
+        return shopService.changeReturnStatus(orderId, status, workUserID) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "updateOrderStatus", method = RequestMethod.POST, produces = "application/json")
@@ -445,7 +452,7 @@ public class ShopController {
         int shopId = Integer.parseInt(requestMap.get("shopId").toString());
         String orderId = policy.sanitize(requestMap.get("orderId").toString() == null ? "" : requestMap.get("orderId").toString());
         String status = policy.sanitize(requestMap.get("status").toString() == null ? "" : requestMap.get("status").toString());
-        return shopService.updateOrderStatus(orderId, status, shopId, userId) == 1 ? new Result(200) : new Result(400);
+        return shopService.updateOrderStatus(orderId, status, shopId, userId) == 1 ? Result.success() : new Result(400);
     }
 
     // 员工管理
@@ -466,14 +473,14 @@ public class ShopController {
         int shopId = Integer.parseInt(requestMap.get("shopID").toString());
         int id = Integer.parseInt(requestMap.get("id").toString());
         Boolean result = Boolean.parseBoolean(policy.sanitize(requestMap.get("result").toString()));
-        return shopUserService.addStaff(shopId, id, result) == 1 ? new Result(200) : new Result(400);
+        return shopUserService.addStaff(shopId, id, result) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/staff/dismissStaff", method = RequestMethod.POST, produces = "application/json")
     public Result dismissStaff(@RequestBody Map<String, Object> requestMap) {
         int shopId = Integer.parseInt(requestMap.get("shopID").toString());
         int id = Integer.parseInt(requestMap.get("id").toString());
-        return shopUserService.dismissStaff(shopId, id) == 1 ? new Result(200) : new Result(400);
+        return shopUserService.dismissStaff(shopId, id) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/staff/attendance/getShopStaffAttendance")
@@ -497,7 +504,7 @@ public class ShopController {
         if (!isSameDay) {
             return new Result(401);
         }
-        return shopUserService.signIn(userId, shopId) == 1 ? new Result(200) : new Result(400);
+        return shopUserService.signIn(userId, shopId) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/chat/getTalkList", method = RequestMethod.POST, produces = "application/json")
@@ -510,7 +517,7 @@ public class ShopController {
     public Result deleteChatSession(@RequestBody Map<String, Object> requestMap) {
         int userId = Integer.parseInt(requestMap.get("userId").toString());
         int shopId = Integer.parseInt(requestMap.get("shopID").toString());
-        return shopService.deleteChatSession(userId, shopId) == 1 ? new Result(200) : new Result(400);
+        return shopService.deleteChatSession(userId, shopId) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/chat/getTalkDetail", method = RequestMethod.POST, produces = "application/json")
@@ -525,7 +532,7 @@ public class ShopController {
         int userId = Integer.parseInt(requestMap.get("userId").toString());
         int shopId = Integer.parseInt(requestMap.get("shopID").toString());
         String message = policy.sanitize(requestMap.get("message").toString());
-        return shopService.sendMessage(userId, shopId, message, "text") == 1 ? new Result(200) : new Result(400);
+        return shopService.sendMessage(userId, shopId, message, "text") == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/chat/uploadImage", method = RequestMethod.POST, produces = "application/json")
@@ -548,7 +555,7 @@ public class ShopController {
             String result = aliOSSUtil.upload(file, path, fileName);
             if (result != null) {
                 String avatarUrl = "https://oss.yy0313.fit/" + path + "/" + fileName + ".jpg";
-                return shopService.sendMessage(userId, shopId, avatarUrl, "image") == 1 ? new Result(200) : new Result(400);
+                return shopService.sendMessage(userId, shopId, avatarUrl, "image") == 1 ? Result.success() : new Result(400);
             }
         } catch (Exception e) {
             logger.error("上传图片失败", e);
@@ -613,6 +620,6 @@ public class ShopController {
         shopUserEntity.setEmail(email);
         shopUserEntity.setShopid(shopId);
         shopUserEntity.setStatus("未审核");
-        return shopUserService.insertShopUser(shopUserEntity) == 1 ? new Result(200) : new Result(400);
+        return shopUserService.insertShopUser(shopUserEntity) == 1 ? Result.success() : new Result(400);
     }
 }

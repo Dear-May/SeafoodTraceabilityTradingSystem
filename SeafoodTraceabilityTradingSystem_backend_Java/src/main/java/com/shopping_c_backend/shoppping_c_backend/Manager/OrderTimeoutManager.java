@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Manager;
+package com.shopping_c_backend.Manager;
 
 import java.util.concurrent.*;
 

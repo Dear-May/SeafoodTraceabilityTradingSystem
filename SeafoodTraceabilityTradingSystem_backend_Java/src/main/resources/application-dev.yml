@@ -1,0 +1,72 @@
+# 开发环境配置
+spring:
+  redis:
+    host: 127.0.0.1
+    database: 1
+    port: 6379
+    password: "****"
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1ms
+        max-idle: 8
+        min-idle: 0
+    timeout: 3000ms
+  datasource:
+    url: jdbc:mysql://localhost:3306/oceanwave?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC
+    username: "****"
+    password: "****"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  elasticsearch:
+    uris: http://localhost:9200
+    username: "****"
+    password: "****"
+  mail:
+    username: "****"
+    password: "****"
+    host: smtp.qq.com
+    default-encoding: utf-8
+    port: 465
+    protocol: smtps
+    properties:
+      mail:
+        smtp:
+          ssl:
+            enable: ture
+
+aliyun:
+  accessKey: "****"
+  accessKeySecret: "****"
+  oss:
+    endpoint: oss-cn-beijing.aliyuncs.com
+    bucketName: oceanwave
+
+gitee:
+  appID: "****"
+  appKEY: "****"
+  redirectURI: http://127.0.0.1:8888/callback/gitee
+  authorizeURL: https://gitee.com/oauth/authorize
+  accessToken: https://gitee.com/oauth/token
+  userInfo: https://gitee.com/api/v5/user
+
+github:
+  appID: "****"
+  appKEY: "****"
+  redirectURI: http://127.0.0.1:8888/callback/github
+
+google:
+  appID: "****"
+  appKEY: "****"
+  redirectURI: http://127.0.0.1:8888/callback/google
+
+wechat:
+  appID: "****"
+  appKEY: "****"
+
+weather:
+  appID: "****"
+  appKEY: "****"
+
+baidu:
+  AppID: "****"
+  APIKey: "****"

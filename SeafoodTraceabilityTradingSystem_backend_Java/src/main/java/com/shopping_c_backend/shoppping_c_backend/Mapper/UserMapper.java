@@ -1,6 +1,6 @@
-package com.shopping_c_backend.shoppping_c_backend.Mapper;
+package com.shopping_c_backend.Mapper;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.UserEntity;
+import com.shopping_c_backend.module.user.UserEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

@@ -1,9 +1,10 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.ThirdPartyEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.UserEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.UserMapper;
-import com.shopping_c_backend.shoppping_c_backend.Util.TokenUtil;
+import com.shopping_c_backend.module.user.ThirdPartyEntity;
+import com.shopping_c_backend.common.cache.CacheService;
+import com.shopping_c_backend.module.user.UserEntity;
+import com.shopping_c_backend.module.user.UserMapper;
+import com.shopping_c_backend.common.util.TokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -14,11 +15,13 @@ import javax.annotation.Resource;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class UserServiceImpl {
+public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
     @Resource
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
+    @Resource
+    private CacheService cacheService;
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     public UserEntity queryAll() {
@@ -269,5 +272,11 @@ public class UserServiceImpl {
             operations.set(key, user1, 5, TimeUnit.HOURS);
         }
         return result;
+    }
+
+    @Override
+    public boolean isValidUsername(String username) {
+        String regex = "^[a-zA-Z][a-zA-Z0-9_]{2,14}$";
+        return username != null && username.matches(regex);
     }
 }

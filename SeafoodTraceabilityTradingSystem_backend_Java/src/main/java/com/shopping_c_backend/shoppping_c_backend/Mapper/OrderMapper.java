@@ -1,9 +1,9 @@
-package com.shopping_c_backend.shoppping_c_backend.Mapper;
+package com.shopping_c_backend.Mapper;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.CommentEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.OrderEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.OrderItemEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ReturnGoodEntity;
+import com.shopping_c_backend.module.order.CommentEntity;
+import com.shopping_c_backend.module.order.OrderEntity;
+import com.shopping_c_backend.module.order.OrderItemEntity;
+import com.shopping_c_backend.module.order.ReturnGoodEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

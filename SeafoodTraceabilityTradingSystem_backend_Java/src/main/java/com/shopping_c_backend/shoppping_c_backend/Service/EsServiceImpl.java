@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch._types.query_dsl.BoolQuery;
@@ -9,10 +9,10 @@ import co.elastic.clients.elasticsearch.core.SearchRequest;
 import co.elastic.clients.elasticsearch.core.SearchResponse;
 import co.elastic.clients.elasticsearch.core.search.Hit;
 import com.alibaba.fastjson.JSON;
-import com.shopping_c_backend.shoppping_c_backend.Entity.GoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.SpecificationEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.GoodMapper;
-import com.shopping_c_backend.shoppping_c_backend.Vo.EsGoodVo;
+import com.shopping_c_backend.module.goods.GoodEntity;
+import com.shopping_c_backend.module.goods.SpecificationEntity;
+import com.shopping_c_backend.module.goods.GoodMapper;
+import com.shopping_c_backend.module.search.EsGoodVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service("EsSaveService")
-public class EsServiceImpl implements EsSaveService {
+public class EsServiceImpl implements EsSaveService, EsService {
 
     @Resource
     private ElasticsearchClient elasticsearchClient;

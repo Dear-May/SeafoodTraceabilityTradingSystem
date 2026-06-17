@@ -1,4 +1,4 @@
-package com.shopping_c_backend.shoppping_c_backend.Util;
+package com.shopping_c_backend.Util;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
