@@ -1,0 +1,9 @@
+﻿Django>=5.1,<5.2
+djangorestframework>=3.15,<4
+django-cors-headers>=4.6,<5
+mysql-connector-python>=9.2,<10
+pymilvus>=2.4,<3
+requests>=2.32,<3
+gunicorn>=23,<24
+tensorflow>=2.18,<3
+numpy>=1.26,<2
