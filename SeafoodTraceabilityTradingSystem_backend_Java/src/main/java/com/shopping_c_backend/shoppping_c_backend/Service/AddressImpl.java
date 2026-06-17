@@ -1,9 +1,9 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.AddressEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.AddressMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.UserMapper;
-import com.shopping_c_backend.shoppping_c_backend.Util.AddressUtil;
+import com.shopping_c_backend.module.address.AddressEntity;
+import com.shopping_c_backend.module.address.AddressMapper;
+import com.shopping_c_backend.module.user.UserMapper;
+import com.shopping_c_backend.common.util.AddressUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class AddressImpl {
+public class AddressImpl implements AddressService {
     @Resource
     private AddressMapper addressMapper;
     @Resource

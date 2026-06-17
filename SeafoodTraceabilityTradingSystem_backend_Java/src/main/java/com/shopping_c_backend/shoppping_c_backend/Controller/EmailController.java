@@ -1,13 +1,13 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
 import com.aliyuncs.utils.StringUtils;
-import com.shopping_c_backend.shoppping_c_backend.Service.RedisService;
-import com.shopping_c_backend.shoppping_c_backend.Util.EmailUtil;
-import com.shopping_c_backend.shoppping_c_backend.Util.VerCodeGenerateUtil;
-import com.shopping_c_backend.shoppping_c_backend.Vo.Result;
+import com.shopping_c_backend.common.cache.RedisService;
+import com.shopping_c_backend.common.util.EmailUtil;
+import com.shopping_c_backend.common.util.VerCodeGenerateUtil;
+import com.shopping_c_backend.common.web.Result;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("/email")
 public class EmailController {
     /***
@@ -45,7 +45,7 @@ public class EmailController {
         } else {
             return new Result(500);
         }
-        return new Result(200);
+        return Result.success();
     }
 
     @ResponseBody
@@ -62,7 +62,7 @@ public class EmailController {
         } else {
             //验证码正确
             if (redisauthcode.equals(verCode)) {
-                return new Result(200);
+                return Result.success();
             } else {
                 //验证码错误
                 System.out.println("验证码错误");

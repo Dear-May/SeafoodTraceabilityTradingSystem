@@ -152,7 +152,7 @@
                   :drag-mode="move"
               ></vue-cropper>
               <div v-if="imageSrc">
-                <el-button type="primary" @click="cropImage" style="border-radius: 20px;">裁剪并发送</el-button>
+                <el-button type="primary" @click="cropImage" class="rounded-20">裁剪并发送</el-button>
               </div>
             </el-dialog>
           </div>
@@ -182,7 +182,7 @@ import StoreHeaderView from "@/components/StoreHeaderView.vue";
 import {computed, nextTick, onMounted, ref} from "vue";
 import {useUserShop} from "@/composables/useShopUser";
 import {Delete} from "@element-plus/icons-vue";
-import axios from "axios";
+import request from "@/api/request";
 import {ElMessage} from "element-plus";
 import 'emoji-picker-element';
 import VueCropper from "vue-cropperjs";
@@ -198,7 +198,7 @@ const users = ref([]);
 
 async function initUserList() {
   try {
-    const response = await axios.post('/api/shop/chat/getTalkList', {
+    const response = await request.post('/api/shop/chat/getTalkList', {
       shopID: shopForm.value.shopID,
     }, {
       headers: {
@@ -238,7 +238,7 @@ const filteredUsers = computed(() =>
 
 async function selectUser(user) {
   try {
-    const response = await axios.post('/api/shop/chat/getTalkDetail', {
+    const response = await request.post('/api/shop/chat/getTalkDetail', {
       shopID: shopForm.value.shopID,
       userId: user.id,
     }, {
@@ -276,7 +276,7 @@ async function handleInitChat(id) {
 async function deleteUser(index) {
   const contactId = users.value[index].id;
   try {
-    const response = await axios.post('/api/shop/chat/deleteChatSession', {
+    const response = await request.post('/api/shop/chat/deleteChatSession', {
       shopID: shopForm.value.shopID,
       userId: contactId,
     }, {
@@ -316,7 +316,7 @@ async function uploadImage(file) {
     formData.append('file', file);
     formData.append('userId', selectedUser.value.id);
     formData.append('shopId', shopForm.value.shopID);
-    const response = await axios.post('/api/shop/chat/uploadImage', formData, {
+    const response = await request.post('/api/shop/chat/uploadImage', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       },
@@ -358,7 +358,7 @@ async function sendMessage() {
     return;
   }
   try {
-    const response = await axios.post('/api/shop/chat/sendMessage', {
+    const response = await request.post('/api/shop/chat/sendMessage', {
       shopID: shopForm.value.shopID,
       userId: selectedUser.value.id,
       message: inputMessage.value,

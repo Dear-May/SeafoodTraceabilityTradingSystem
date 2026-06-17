@@ -1,9 +1,8 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
 import co.elastic.clients.elasticsearch.ElasticsearchClient;
 import co.elastic.clients.elasticsearch.core.InfoResponse;
-import com.shopping_c_backend.shoppping_c_backend.Service.EsServiceImpl;
-import org.springframework.context.annotation.Lazy;
+import com.shopping_c_backend.module.search.EsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,8 +16,7 @@ public class TestController {
     @Resource
     private ElasticsearchClient client;
     @Resource
-    @Lazy
-    private EsServiceImpl service;
+    private EsService service;
 
     @PostMapping("/es")
     public String testElasticsearch() {

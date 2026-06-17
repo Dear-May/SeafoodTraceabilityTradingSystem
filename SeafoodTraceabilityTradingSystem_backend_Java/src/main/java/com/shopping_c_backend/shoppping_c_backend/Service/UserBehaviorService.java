@@ -1,10 +1,20 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.*;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.BucketMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.FavoriteMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.FootMarkMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.OrderMapper;
+import com.shopping_c_backend.module.user.*;
+import com.shopping_c_backend.module.goods.*;
+import com.shopping_c_backend.module.order.*;
+import com.shopping_c_backend.module.shop.*;
+import com.shopping_c_backend.module.cart.*;
+import com.shopping_c_backend.module.favorite.*;
+import com.shopping_c_backend.module.footprint.*;
+import com.shopping_c_backend.module.chat.*;
+import com.shopping_c_backend.module.admin.*;
+import com.shopping_c_backend.module.live.*;
+import com.shopping_c_backend.module.trace.*;
+import com.shopping_c_backend.module.cart.BucketMapper;
+import com.shopping_c_backend.module.favorite.FavoriteMapper;
+import com.shopping_c_backend.module.footprint.FootMarkMapper;
+import com.shopping_c_backend.module.order.OrderMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

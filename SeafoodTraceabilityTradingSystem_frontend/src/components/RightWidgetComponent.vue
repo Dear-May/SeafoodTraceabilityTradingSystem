@@ -44,7 +44,7 @@
 import {useThemeStore} from "@/store/themeStore";
 import {computed, defineExpose, onBeforeUnmount, onMounted, ref, watch} from "vue";
 import router from "@/router";
-import axios from "axios";
+import request from "@/api/request";
 import {ElMessage} from "element-plus";
 import useUser from "@/composables/useUser";
 
@@ -92,7 +92,7 @@ const handleScrollToTop = () => {
 const cartCount = ref(0);
 
 async function getCartCount() {
-  const response = await axios.post('/api/good/getCartCount', {
+  const response = await request.post('/api/good/getCartCount', {
     userId: UserInfoForm.value.id,
   }, {
     headers: {

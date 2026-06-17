@@ -114,7 +114,7 @@ import ShopSliderComponent from "@/components/ShopSliderComponent.vue";
 import {useUserShop} from "@/composables/useShopUser";
 import {computed, onMounted, ref} from "vue";
 import {ElMessage} from "element-plus";
-import axios from "axios";
+import request from "@/api/request";
 import StoreHeaderView from "@/components/StoreHeaderView.vue";
 
 const {shopForm, initUserSession, initShopInfo, UserForm} = useUserShop();
@@ -138,7 +138,7 @@ const employees = ref([]);
 
 async function initEmployees() {
   try {
-    const response = await axios.post("/api/shop/staff/getShopStaffInfo", {
+    const response = await request.post("/api/shop/staff/getShopStaffInfo", {
       shopID: shopForm.value.shopID
     }, {
       headers: {
@@ -158,7 +158,7 @@ const applications = ref([]);
 
 async function initApplications() {
   try {
-    const response = await axios.post("/api/shop/staff/getAuditShopStaffInfo", {
+    const response = await request.post("/api/shop/staff/getAuditShopStaffInfo", {
       shopID: shopForm.value.shopID
     }, {
       headers: {
@@ -204,7 +204,7 @@ const cancelFire = () => {
 // 确认离职
 async function fireEmployee() {
   try {
-    const response = await axios.post("/api/shop/staff/dismissStaff", {
+    const response = await request.post("/api/shop/staff/dismissStaff", {
       shopID: shopForm.value.shopID,
       id: selectedEmployee.value.id
     }, {
@@ -229,7 +229,7 @@ async function fireEmployee() {
 // 申请处理
 async function approveApplication(application, result) {
   try {
-    const response = await axios.post('/api/shop/staff/addStaff', {
+    const response = await request.post('/api/shop/staff/addStaff', {
       shopID: shopForm.value.shopID,
       id: application.id,
       result: result

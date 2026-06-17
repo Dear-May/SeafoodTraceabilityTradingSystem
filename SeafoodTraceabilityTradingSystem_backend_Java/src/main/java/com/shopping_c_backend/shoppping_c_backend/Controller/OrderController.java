@@ -1,19 +1,18 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
 import com.alibaba.fastjson.JSONArray;
-import com.shopping_c_backend.shoppping_c_backend.Entity.OrderRequest;
-import com.shopping_c_backend.shoppping_c_backend.Manager.OrderStatusManager;
-import com.shopping_c_backend.shoppping_c_backend.Manager.OrderTimeoutManager;
-import com.shopping_c_backend.shoppping_c_backend.Service.OrderServiceImpl;
-import com.shopping_c_backend.shoppping_c_backend.Util.AliOSSUtil;
-import com.shopping_c_backend.shoppping_c_backend.Vo.Result;
-import com.shopping_c_backend.shoppping_c_backend.Websocket.SessionManager;
+import com.shopping_c_backend.module.order.OrderRequest;
+import com.shopping_c_backend.module.order.OrderStatusManager;
+import com.shopping_c_backend.module.order.OrderTimeoutManager;
+import com.shopping_c_backend.module.order.OrderService;
+import com.shopping_c_backend.common.util.AliOSSUtil;
+import com.shopping_c_backend.common.web.Result;
+import com.shopping_c_backend.websocket.core.SessionManager;
 import lombok.Getter;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +29,6 @@ import java.util.Objects;
 @RequestMapping("/pay")
 public class OrderController {
     @Resource
-    @Lazy
     private OrderServiceImpl orderService;
     private final static Logger logger = LoggerFactory.getLogger(OrderController.class);
     PolicyFactory policy = new HtmlPolicyBuilder()
@@ -66,7 +64,7 @@ public class OrderController {
         String specId = policy.sanitize(requestMap.get("specId") == null ? "" : requestMap.get("specId").toString());
         int result = orderService.changeGoodNumber(token, num, specId);
         if (result == 1) {
-            return new Result(200);
+            return Result.success();
         } else if (result == 0)
             return new Result(404);
         else
@@ -121,7 +119,7 @@ public class OrderController {
     public Result changOrderStatus(@RequestBody Map<String, Object> requestMap) {
         String token = policy.sanitize(requestMap.get("token") == null ? "" : requestMap.get("token").toString());
         String status = policy.sanitize(requestMap.get("status") == null ? "" : requestMap.get("status").toString());
-        return orderService.changeOrderStatus(token, status) == 1 ? new Result(200) : new Result(400);
+        return orderService.changeOrderStatus(token, status) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/changOrderStatusView", method = RequestMethod.POST, headers = "Content-Type=application/json")
@@ -129,7 +127,7 @@ public class OrderController {
         int userId = Integer.parseInt(requestMap.get("userId").toString() == null ? "1" : requestMap.get("userId").toString());
         String orderId = policy.sanitize(requestMap.get("orderId") == null ? "" : requestMap.get("orderId").toString());
         String status = policy.sanitize(requestMap.get("status") == null ? "" : requestMap.get("status").toString());
-        return orderService.changeOrderStatus(userId, orderId, status) == 1 ? new Result(200) : new Result(400);
+        return orderService.changeOrderStatus(userId, orderId, status) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/order/getOrderCount", method = RequestMethod.POST, headers = "Content-Type=application/json")
@@ -152,7 +150,7 @@ public class OrderController {
         String result = orderService.addReturnInfo(orderId, info);
         Map<String, Object> map = new HashMap<>();
         if (!result.isEmpty()) {
-            map.put("result", new Result(200));
+            map.put("result", Result.success());
             map.put("returnId", result);
         } else
             map.put("result", new Result(400));
@@ -176,7 +174,7 @@ public class OrderController {
                     index++;
                 }
             }
-            return orderService.updateReturnImg(returnId, jsonArray.toJSONString()) != 0 ? new Result(200) : new Result(400);
+            return orderService.updateReturnImg(returnId, jsonArray.toJSONString()) != 0 ? Result.success() : new Result(400);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return new Result(500);
@@ -220,13 +218,13 @@ public class OrderController {
                 }
             }
             if (jsonArray.isEmpty()) {
-                return orderService.changeOrderStatus(userId, orderId, "已评价") == 1 ? new Result(200) : new Result(400);
+                return orderService.changeOrderStatus(userId, orderId, "已评价") == 1 ? Result.success() : new Result(400);
             }
             int result = orderService.updateCommentImages(orderId, jsonArray.toJSONString());
             if (result == 1) {
                 orderService.deleteCommentInRedis(userId);
                 orderService.getCommentByUserId(userId);
-                return orderService.changeOrderStatus(userId, orderId, "已评价") == 1 ? new Result(200) : new Result(400);
+                return orderService.changeOrderStatus(userId, orderId, "已评价") == 1 ? Result.success() : new Result(400);
             } else
                 return new Result(400);
         } catch (Exception e) {
@@ -239,7 +237,7 @@ public class OrderController {
     public Result deleteComment(@RequestBody Map<String, Object> requestMap) {
         int userId = Integer.parseInt(requestMap.get("userId").toString() == null ? "1" : requestMap.get("userId").toString());
         int commentId = Integer.parseInt(requestMap.get("commentId").toString() == null ? "1" : requestMap.get("commentId").toString());
-        return orderService.deleteComment(userId, commentId) == 1 ? new Result(200) : new Result(400);
+        return orderService.deleteComment(userId, commentId) == 1 ? Result.success() : new Result(400);
     }
 
     @RequestMapping(value = "/chat/getChatOrderList", method = RequestMethod.POST, headers = "Accept=application/json")

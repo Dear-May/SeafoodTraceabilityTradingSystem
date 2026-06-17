@@ -1,16 +1,16 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.shopping_c_backend.shoppping_c_backend.Entity.GoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopUserEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.Trace.TraceEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.Trace.TraceGoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.Trace.TraceInformationEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.Trace.TraceUserEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.GoodMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.ShopMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.TraceMapper;
+import com.shopping_c_backend.module.goods.GoodEntity;
+import com.shopping_c_backend.module.shop.ShopUserEntity;
+import com.shopping_c_backend.module.trace.TraceEntity;
+import com.shopping_c_backend.module.trace.TraceGoodEntity;
+import com.shopping_c_backend.module.trace.TraceInformationEntity;
+import com.shopping_c_backend.module.trace.TraceUserEntity;
+import com.shopping_c_backend.module.goods.GoodMapper;
+import com.shopping_c_backend.module.shop.ShopMapper;
+import com.shopping_c_backend.module.trace.TraceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -22,7 +22,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class TraceServiceImpl {
+public class TraceServiceImpl implements TraceService {
     @Resource
     private TraceMapper traceMapper;
     @Resource

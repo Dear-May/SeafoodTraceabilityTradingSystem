@@ -1,9 +1,9 @@
-package com.shopping_c_backend.shoppping_c_backend.Mapper;
+package com.shopping_c_backend.Mapper;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.AttendanceEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ReviewLicenseEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopUserEntity;
+import com.shopping_c_backend.module.shop.AttendanceEntity;
+import com.shopping_c_backend.module.shop.ReviewLicenseEntity;
+import com.shopping_c_backend.module.shop.ShopEntity;
+import com.shopping_c_backend.module.shop.ShopUserEntity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
 

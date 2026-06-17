@@ -1,6 +1,6 @@
 <template>
   <el-header class="register-logo header-left">
-    <img src="../images/logo.png" alt="Logo" class="logo-img" @click="handleHome" width="80" height="80"/>
+    <img src="../assets/images/logo.png" alt="Logo" class="logo-img" @click="handleHome" width="80" height="80"/>
     <span class="header-title">{{ setTitle(title) }}</span>
   </el-header>
 </template>

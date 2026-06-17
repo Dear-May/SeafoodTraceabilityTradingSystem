@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @SpringBootApplication
 @Controller
-@MapperScan(basePackages = "com.shopping_c_backend.shoppping_c_backend.Mapper")
+@MapperScan(basePackages = "com.shopping_c_backend.Mapper")
 public class ShoppingCBackendApplication {
 
     public static void main(String[] args) {

@@ -18,7 +18,7 @@
               :width="200"
               trigger="hover"
           >
-            <img src="@/images/qrcode_for_gh_6708f3c423f2_258.jpg" alt="微信公众号" style="width: 100%;">
+            <img src="@/assets/images/qrcode_for_gh_6708f3c423f2_258.jpg" alt="微信公众号" style="width: 100%;">
             <template #reference>
               <i class="bi bi-wechat" style="font-size: 20px"></i>
             </template>

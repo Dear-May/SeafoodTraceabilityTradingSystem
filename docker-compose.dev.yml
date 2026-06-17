@@ -1,0 +1,57 @@
+﻿version: '3.8'
+
+# 开发环境：仅启动基础设施服务，后端和前端在 IDE 中本地运行
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: oceanwave-mysql-dev
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: \
+      MYSQL_DATABASE: oceanwave
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data-dev:/var/lib/mysql
+
+  redis:
+    image: redis:7-alpine
+    container_name: oceanwave-redis-dev
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data-dev:/data
+
+  elasticsearch:
+    image: elasticsearch:8.16.1
+    container_name: oceanwave-es-dev
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es-data-dev:/usr/share/elasticsearch/data
+
+  milvus:
+    image: milvusdb/milvus:v2.4.12
+    container_name: oceanwave-milvus-dev
+    restart: unless-stopped
+    environment:
+      ETCD_USE_EMBED: "true"
+    ports:
+      - "19530:19530"
+    volumes:
+      - milvus-data-dev:/var/lib/milvus
+
+volumes:
+  mysql-data-dev:
+  redis-data-dev:
+  es-data-dev:
+  milvus-data-dev:

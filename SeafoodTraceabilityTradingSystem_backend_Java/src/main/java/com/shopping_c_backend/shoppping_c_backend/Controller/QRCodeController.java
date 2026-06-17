@@ -1,12 +1,12 @@
-package com.shopping_c_backend.shoppping_c_backend.Controller;
+package com.shopping_c_backend.Controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shopping_c_backend.shoppping_c_backend.Component.WechatProvider;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ThirdPartyEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.WechatUserEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.UserMapper;
-import com.shopping_c_backend.shoppping_c_backend.Service.UserServiceImpl;
-import com.shopping_c_backend.shoppping_c_backend.Vo.WechatStatusResult;
+import com.shopping_c_backend.thirdparty.auth.provider.WechatProvider;
+import com.shopping_c_backend.module.user.ThirdPartyEntity;
+import com.shopping_c_backend.module.user.WechatUserEntity;
+import com.shopping_c_backend.module.user.UserMapper;
+import com.shopping_c_backend.module.user.UserServiceImpl;
+import com.shopping_c_backend.module.search.WechatStatusResult;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -22,7 +22,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +46,6 @@ public class QRCodeController {
     @Resource
     private UserMapper userMapper;
     @Resource
-    @Lazy
     private UserServiceImpl userService;
     private static final Logger logger = LoggerFactory.getLogger(QRCodeController.class);
 

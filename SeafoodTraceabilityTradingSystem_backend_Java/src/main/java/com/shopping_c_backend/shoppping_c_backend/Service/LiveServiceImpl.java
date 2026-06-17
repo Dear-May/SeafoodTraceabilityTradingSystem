@@ -1,13 +1,13 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.LiveMessageEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.UserEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.LiveMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.ShopMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.UserMapper;
-import com.shopping_c_backend.shoppping_c_backend.Vo.Result;
-import com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers.NotificationMessageHandler;
+import com.shopping_c_backend.module.live.LiveMessageEntity;
+import com.shopping_c_backend.module.shop.ShopEntity;
+import com.shopping_c_backend.module.user.UserEntity;
+import com.shopping_c_backend.module.live.LiveMapper;
+import com.shopping_c_backend.module.shop.ShopMapper;
+import com.shopping_c_backend.module.user.UserMapper;
+import com.shopping_c_backend.common.web.Result;
+import com.shopping_c_backend.websocket.handler.NotificationMessageHandler;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class LiveServiceImpl {
+public class LiveServiceImpl implements LiveService {
     @Resource
     private LiveMapper liveMapper;
     @Resource

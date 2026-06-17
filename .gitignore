@@ -1,0 +1,45 @@
+﻿# Built artifacts
+target/
+build/
+dist/
+*.jar
+*.war
+
+# IDE
+.idea/
+*.iml
+*.iws
+.vscode/
+.classpath
+.project
+.settings
+.sts4-cache
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Node
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Docker
+docker-compose.override.yml
+
+# Logs
+*.log
+
+# Temp
+temp_images/

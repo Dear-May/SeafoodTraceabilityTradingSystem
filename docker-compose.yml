@@ -1,0 +1,138 @@
+﻿version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: oceanwave-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: \
+      MYSQL_DATABASE: oceanwave
+      MYSQL_CHARACTER_SET_SERVER: utf8mb4
+      MYSQL_COLLATION_SERVER: utf8mb4_unicode_ci
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: oceanwave-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  elasticsearch:
+    image: elasticsearch:8.16.1
+    container_name: oceanwave-es
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9200"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  milvus:
+    image: milvusdb/milvus:v2.4.12
+    container_name: oceanwave-milvus
+    restart: unless-stopped
+    environment:
+      ETCD_USE_EMBED: "true"
+    ports:
+      - "19530:19530"
+    volumes:
+      - milvus-data:/var/lib/milvus
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9091/healthz"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  java-backend:
+    build:
+      context: ./SeafoodTraceabilityTradingSystem_backend_Java
+      dockerfile: Dockerfile
+    container_name: oceanwave-java
+    restart: unless-stopped
+    ports:
+      - "8888:8888"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/oceanwave?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: \
+      SPRING_REDIS_HOST: redis
+      SPRING_ELASTICSEARCH_URIS: http://elasticsearch:9200
+      IMAGE_SEARCH_API_BASE_URL: http://python-backend:8889/api/
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
+
+  python-backend:
+    build:
+      context: ./SeafoodTraceabilityTradingSystem_backend_Python
+      dockerfile: Dockerfile
+    container_name: oceanwave-python
+    restart: unless-stopped
+    ports:
+      - "8889:8889"
+    environment:
+      DJANGO_SECRET_KEY: \
+      DJANGO_DEBUG: "False"
+      DJANGO_ALLOWED_HOSTS: localhost,127.0.0.1,python-backend
+      DB_HOST: mysql
+      DB_PORT: "3306"
+      DB_NAME: oceanwave
+      DB_USER: root
+      DB_PASSWORD: \
+      MILVUS_HOST: milvus
+      MILVUS_PORT: "19530"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      milvus:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: ./SeafoodTraceabilityTradingSystem_frontend
+      dockerfile: Dockerfile
+    container_name: oceanwave-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      VUE_APP_API_BASE_URL: http://java-backend:8888
+    depends_on:
+      - java-backend
+      - python-backend
+
+volumes:
+  mysql-data:
+  redis-data:
+  es-data:
+  milvus-data:

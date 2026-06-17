@@ -1,9 +1,19 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.*;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.*;
-import com.shopping_c_backend.shoppping_c_backend.Util.AliOSSUtil;
-import com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers.ChatMessageHandler;
+import com.shopping_c_backend.module.user.*;
+import com.shopping_c_backend.module.goods.*;
+import com.shopping_c_backend.module.order.*;
+import com.shopping_c_backend.module.shop.*;
+import com.shopping_c_backend.module.cart.*;
+import com.shopping_c_backend.module.favorite.*;
+import com.shopping_c_backend.module.footprint.*;
+import com.shopping_c_backend.module.chat.*;
+import com.shopping_c_backend.module.admin.*;
+import com.shopping_c_backend.module.live.*;
+import com.shopping_c_backend.module.trace.*;
+import com.shopping_c_backend.Mapper.*;
+import com.shopping_c_backend.common.util.AliOSSUtil;
+import com.shopping_c_backend.websocket.handler.ChatMessageHandler;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 @Service
-public class ShopServiceImpl {
+public class ShopServiceImpl implements ShopService {
     @Resource
     private ShopMapper shopMapper;
     @Resource
@@ -40,13 +50,13 @@ public class ShopServiceImpl {
     private RedisTemplate redisTemplate;
     @Resource
     @Lazy
-    GoodServiceImpl goodService;
+    GoodService goodService;
     @Resource
     @Lazy
-    OrderServiceImpl orderService;
+    OrderService orderService;
     @Resource
     @Lazy
-    private ChatMessageServiceImpl chatMessageService;
+    private ChatMessageService chatMessageService;
     private static final Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
 
     public ShopEntity findById(int id) {

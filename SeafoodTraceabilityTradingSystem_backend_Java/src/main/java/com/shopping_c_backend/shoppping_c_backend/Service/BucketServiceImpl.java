@@ -1,13 +1,13 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.BucketEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.GoodEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.SpecificationEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.BucketMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.GoodMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.ShopMapper;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.UserMapper;
+import com.shopping_c_backend.module.cart.BucketEntity;
+import com.shopping_c_backend.module.goods.GoodEntity;
+import com.shopping_c_backend.module.shop.ShopEntity;
+import com.shopping_c_backend.module.goods.SpecificationEntity;
+import com.shopping_c_backend.module.cart.BucketMapper;
+import com.shopping_c_backend.module.goods.GoodMapper;
+import com.shopping_c_backend.module.shop.ShopMapper;
+import com.shopping_c_backend.module.user.UserMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class BucketServiceImpl {
+public class BucketServiceImpl implements BucketService {
     @Resource
     private BucketMapper bucketMapper;
     @Resource

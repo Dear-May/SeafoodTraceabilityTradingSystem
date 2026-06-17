@@ -1,6 +1,6 @@
-package com.shopping_c_backend.shoppping_c_backend.Config;
+package com.shopping_c_backend.Config;
 
-import com.shopping_c_backend.shoppping_c_backend.Websocket.WebSocketRouter;
+import com.shopping_c_backend.websocket.core.WebSocketRouter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.socket.server.standard.ServerEndpointExporter;

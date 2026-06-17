@@ -1,11 +1,11 @@
-package com.shopping_c_backend.shoppping_c_backend.Service;
+package com.shopping_c_backend.Service;
 
-import com.shopping_c_backend.shoppping_c_backend.Entity.AttendanceEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopEntity;
-import com.shopping_c_backend.shoppping_c_backend.Entity.ShopUserEntity;
-import com.shopping_c_backend.shoppping_c_backend.Mapper.ShopMapper;
-import com.shopping_c_backend.shoppping_c_backend.Util.EmailUtil;
-import com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers.NotificationMessageHandler;
+import com.shopping_c_backend.module.shop.AttendanceEntity;
+import com.shopping_c_backend.module.shop.ShopEntity;
+import com.shopping_c_backend.module.shop.ShopUserEntity;
+import com.shopping_c_backend.module.shop.ShopMapper;
+import com.shopping_c_backend.common.util.EmailUtil;
+import com.shopping_c_backend.websocket.handler.NotificationMessageHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -20,7 +20,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
-public class ShopUserServiceImpl {
+public class ShopUserServiceImpl implements ShopUserService {
     @Resource
     private ShopMapper shopMapper;
     @Resource

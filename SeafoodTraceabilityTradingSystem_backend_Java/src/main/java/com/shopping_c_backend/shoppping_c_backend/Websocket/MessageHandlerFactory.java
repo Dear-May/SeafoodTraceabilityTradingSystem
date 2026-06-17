@@ -1,8 +1,8 @@
-package com.shopping_c_backend.shoppping_c_backend.Websocket;
+package com.shopping_c_backend.Websocket;
 
-import com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers.ChatMessageHandler;
-import com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers.NotificationMessageHandler;
-import com.shopping_c_backend.shoppping_c_backend.Websocket.Handlers.PaymentMessageHandler;
+import com.shopping_c_backend.websocket.handler.ChatMessageHandler;
+import com.shopping_c_backend.websocket.handler.NotificationMessageHandler;
+import com.shopping_c_backend.websocket.handler.PaymentMessageHandler;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
